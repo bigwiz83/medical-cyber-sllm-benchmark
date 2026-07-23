@@ -4,7 +4,7 @@
   "release_version": "1.0.0",
   "manifest_excludes_self": true,
   "file_count": 853,
-  "total_size_bytes": 18875359,
+  "total_size_bytes": 18875341,
   "files": [
     {
       "path": ".gitattributes",
@@ -14,8 +14,8 @@
     },
     {
       "path": ".github/workflows/reanalysis.yml",
-      "size_bytes": 766,
-      "sha256": "104652e18584b74cb922014e4caab79f1bc8823977cc801d33b7fe01439905ec",
+      "size_bytes": 780,
+      "sha256": "31c0fd10dda33f0f8bb2ca90d4419bbe2b2da53533a44cb81d72147a254a1446",
       "media_type": "application/yaml"
     },
     {
@@ -50,8 +50,8 @@
     },
     {
       "path": "README.md",
-      "size_bytes": 4627,
-      "sha256": "f933743575c7055a1b1c12ff0734f7e33e9b9ce5e0aa3111734328b232f6c8d5",
+      "size_bytes": 4613,
+      "sha256": "856797d124271eabfbf2b11181df0dbac00af1b09a17a60be9020f0615add11b",
       "media_type": "text/markdown"
     },
     {
@@ -4838,8 +4838,8 @@
     },
     {
       "path": "metadata/data_availability.md",
-      "size_bytes": 1204,
-      "sha256": "22da96a7b2b2aeeee18d4b0d1716786c919da26ba2332cf9abc647172d6364d0",
+      "size_bytes": 1183,
+      "sha256": "ca989ad9dab2d6fd5e80bdd3768966e23b412067c79390ac150532e52c191847",
       "media_type": "text/markdown"
     },
     {
@@ -4856,8 +4856,8 @@
     },
     {
       "path": "metadata/release_notes.md",
-      "size_bytes": 576,
-      "sha256": "5f5f467b10c368f2771d18b1d280cd6555fd1cc79a5f5ba921ccca742c68ac5a",
+      "size_bytes": 579,
+      "sha256": "c8eec8b0b1f6f249d571669447ee0183a889c51008fb0d35ad3ae3daa4db0daf",
       "media_type": "text/markdown"
     },
     {

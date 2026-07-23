@@ -84,9 +84,9 @@ p=0.000200). See `results/` for the full condition, subgroup, and comparison tab
 
 ## Data and code availability
 
-The versioned public home for this package is intended to be
-https://github.com/bigwiz83/medical-cyber-sllm-benchmark. A repository tag and commit identifier should
-be cited in the article after publication. No patient, staff, or real-hospital data were used.
+The versioned public home for this package is
+https://github.com/bigwiz83/medical-cyber-sllm-benchmark. Cite the `v1.0.0` release and its resolved
+commit identifier with the associated article. No patient, staff, or real-hospital data were used.
 
 ## Publication gate
 

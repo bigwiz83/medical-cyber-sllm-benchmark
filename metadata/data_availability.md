@@ -4,9 +4,9 @@ The synthetic scenarios, model-visible public/synthetic corpus, rule- and source
 standard, all 3,000 terminal structured predictions, per-cell five-slot call-seed schedules,
 retrieved-object identifiers, the exact offline scorer, all 3,000 structured cell scores, analysis
 code, statistical sensitivity inputs, tables, figure source data, and environment/model/container
-digests are prepared for a versioned release at
-`https://github.com/bigwiz83/medical-cyber-sllm-benchmark`. The article should cite the final
-repository tag, commit, and archived release identifier after publication.
+digests are available in the versioned `v1.0.0` release at
+`https://github.com/bigwiz83/medical-cyber-sllm-benchmark`. The article should cite that release tag
+and its resolved commit identifier.
 
 No patient, staff, or operational hospital data are included. Upstream model weights and container
 layers are not redistributed; their identifiers and digests are supplied for independent
