@@ -85,7 +85,7 @@ retained-minus-withheld difference was 0.75 (95% CI 0.50 to 0.92; Holm-adjusted 
 ## Data and code availability
 
 The versioned public home for this package is
-https://github.com/bigwiz83/medical-cyber-sllm-benchmark. Cite the `v1.0.1` release and its resolved
+https://github.com/bigwiz83/medical-cyber-sllm-benchmark. Cite the `v1.0.2` release and its resolved
 commit identifier with the associated article. No patient, staff, or real-hospital data were used.
 
 ## Publication gate

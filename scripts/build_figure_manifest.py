@@ -31,7 +31,9 @@ def main() -> int:
         "typeface_policy": "Arial, Helvetica, sans-serif",
         "files": files,
     }
-    TARGET.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    TARGET.write_text(
+        json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     print(f"wrote {len(files)} figure assets")
     return 0
 

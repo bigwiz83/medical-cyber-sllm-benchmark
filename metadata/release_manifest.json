@@ -1,10 +1,10 @@
 {
   "schema_version": "public-release-manifest-1.0.0",
   "study_id": "MEDCYBER-SLLM-PAPER-01",
-  "release_version": "1.0.1",
+  "release_version": "1.0.2",
   "manifest_excludes_self": true,
   "file_count": 853,
-  "total_size_bytes": 17170201,
+  "total_size_bytes": 17170422,
   "files": [
     {
       "path": ".gitattributes",
@@ -27,7 +27,7 @@
     {
       "path": "CITATION.cff",
       "size_bytes": 394,
-      "sha256": "008a7d836faa94dcf78b4d5fe0dda339b19ed937b46809f984f2c20c9abf028b",
+      "sha256": "cab07eccd0c09e8caf386008ce5e7786d750113a943582f10dc69e9b83d0bca2",
       "media_type": "text/yaml"
     },
     {
@@ -51,7 +51,7 @@
     {
       "path": "README.md",
       "size_bytes": 4585,
-      "sha256": "d3df10066f0275cd29d1d1c428a8d7b3982d26ae5f2fb88dc36ed4e5c3e59d7d",
+      "sha256": "7230ce92bd5209345a7eba2767cb169723cccd96742c5928eeef81e03836b086",
       "media_type": "text/markdown"
     },
     {
@@ -4730,8 +4730,8 @@
     },
     {
       "path": "figures/figure_manifest.json",
-      "size_bytes": 3166,
-      "sha256": "a40d826f2ffa43fe9d58d6602f95d123e6e39375594951e4651f8471d588c841",
+      "size_bytes": 3074,
+      "sha256": "15e8875eef3d18da5268ccb84eeaf3851f541f67b88dbf0e724a094a63194dfb",
       "media_type": "application/json"
     },
     {
@@ -4839,7 +4839,7 @@
     {
       "path": "metadata/data_availability.md",
       "size_bytes": 1183,
-      "sha256": "1fa54a3dfb445e40e1617c13ad76041b67d51cfa43b6a14d58511f31458046e1",
+      "sha256": "12fdc184b4b7193652c921d24920333ceb77ae8354807c0fa1016407d603bceb",
       "media_type": "text/markdown"
     },
     {
@@ -4856,8 +4856,8 @@
     },
     {
       "path": "metadata/release_notes.md",
-      "size_bytes": 1021,
-      "sha256": "8d09fed9855a11a81a1b654e54152cba7a850661b7afc86dcc0d4b2661cf4b71",
+      "size_bytes": 1278,
+      "sha256": "45357aa732cf11399a77f9ccb34d9393b99f4806dd5cac309e82ee8658db0386",
       "media_type": "text/markdown"
     },
     {
@@ -4946,8 +4946,8 @@
     },
     {
       "path": "scripts/build_figure_manifest.py",
-      "size_bytes": 1148,
-      "sha256": "efe13d2317f20c8ef47d3d9335d8d75d76baa372a7f6564869c7cbcb99b58ac8",
+      "size_bytes": 1176,
+      "sha256": "2b025addc175a0b5bd8191659e15e6d4ed960ab2ff11c24f1fd659e311e68bff",
       "media_type": "text/x-python"
     },
     {
@@ -5006,8 +5006,8 @@
     },
     {
       "path": "src/medcyber_benchmark/integrity.py",
-      "size_bytes": 23255,
-      "sha256": "133bc523b3e45e0c76e991f79002de3cd966b415d97d963d04231cb2cbb8e1da",
+      "size_bytes": 23283,
+      "sha256": "13d4cbf2ad277717f23c1580a360ec1bee82c2552284f0ee66e1820fe036c046",
       "media_type": "text/x-python"
     },
     {

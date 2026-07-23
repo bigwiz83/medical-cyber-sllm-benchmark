@@ -1,5 +1,9 @@
 # Release notes
 
+Version 1.0.2 makes generated manifest newlines platform-independent so that integrity hashes are
+identical on Windows and Linux checkouts. It contains the same benchmark, results, statistical
+conclusions, and revised publication figures as version 1.0.1.
+
 Version 1.0.1 replaces the three publication figures with fully reproducible, clinical-journal-style
 SVG masters and synchronized 600-dpi PNG/PDF derivatives. It also standardizes publication-facing
 display precision to two decimals for scores and confidence limits and three decimals for P values;

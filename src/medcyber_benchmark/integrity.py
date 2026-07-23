@@ -147,7 +147,7 @@ def write_manifest(root: Path) -> Path:
     payload = {
         "schema_version": "public-release-manifest-1.0.0",
         "study_id": "MEDCYBER-SLLM-PAPER-01",
-        "release_version": "1.0.1",
+        "release_version": "1.0.2",
         "manifest_excludes_self": True,
         "file_count": len(entries),
         "total_size_bytes": sum(item["size_bytes"] for item in entries),
@@ -155,7 +155,9 @@ def write_manifest(root: Path) -> Path:
     }
     target = root / MANIFEST_PATH
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    target.write_text(
+        json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     return target
 
 
