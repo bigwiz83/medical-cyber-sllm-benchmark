@@ -1,0 +1,1 @@
+{"control_id":"MCFG.NETWORK.CROSS_ZONE_DENY","evidence_fields":["research_to_clinical"],"rule":"research_to_clinical must be deny","subject":"synthetic cross-zone network policy","title":"Research-to-clinical network isolation"}

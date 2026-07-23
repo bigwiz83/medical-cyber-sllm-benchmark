@@ -1,0 +1,26 @@
+{
+  "schema_version": "public-analysis-lock-1.0.0",
+  "primary_endpoint": "evidence-verified detection micro-F1",
+  "condition_estimator": "mean of five run-specific micro-F1 values",
+  "full_analysis_set": true,
+  "failed_and_refused_cells_retained": true,
+  "independent_unit": "matched scenario family",
+  "family_count": 30,
+  "repetition_count": 5,
+  "bootstrap": {
+    "method": "synchronized stratum-preserving family and global-repetition bootstrap",
+    "resamples": 10000,
+    "main_seed": 2026071901,
+    "autonomous_seed": 2026072201,
+    "confidence_level": 0.95,
+    "interval": "linear percentile",
+    "p_value": "two-sided centered bootstrap with plus-one correction"
+  },
+  "multiplicity_families": [
+    ["evidence_checking_retained_vs_removed", "retrieval_retained_vs_removed"],
+    ["qwen_fixed_vs_gemma_fixed", "qwen_fixed_vs_gpt_oss_fixed"]
+  ],
+  "multiplicity_method": "Holm",
+  "alpha": 0.05
+}
+

@@ -1,0 +1,432 @@
+{
+  "$defs": {
+    "CoefficientEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_lower": {
+          "minimum": 0.0,
+          "title": "Ci Lower",
+          "type": "number"
+        },
+        "ci_upper": {
+          "minimum": 0.0,
+          "title": "Ci Upper",
+          "type": "number"
+        },
+        "interpretation": {
+          "enum": [
+            "odds_ratio",
+            "incidence_rate_ratio",
+            "geometric_mean_ratio"
+          ],
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "log_scale_estimate": {
+          "title": "Log Scale Estimate",
+          "type": "number"
+        },
+        "standard_error": {
+          "minimum": 0.0,
+          "title": "Standard Error",
+          "type": "number"
+        },
+        "term": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Term",
+          "type": "string"
+        },
+        "transformed_estimate": {
+          "minimum": 0.0,
+          "title": "Transformed Estimate",
+          "type": "number"
+        },
+        "two_sided_p_value": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Two Sided P Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "term",
+        "interpretation",
+        "log_scale_estimate",
+        "standard_error",
+        "transformed_estimate",
+        "ci_lower",
+        "ci_upper",
+        "two_sided_p_value"
+      ],
+      "title": "CoefficientEstimate",
+      "type": "object"
+    },
+    "FitAttempt": {
+      "additionalProperties": false,
+      "properties": {
+        "converged": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Converged"
+        },
+        "diagnostic": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "title": "Diagnostic",
+          "type": "string"
+        },
+        "diagnostic_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Diagnostic Sha256",
+          "type": "string"
+        },
+        "estimator": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Estimator",
+          "type": "string"
+        },
+        "optimizer": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Optimizer"
+        },
+        "ordinal": {
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "specification": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Specification",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "SUCCESS",
+            "FAILED",
+            "UNAVAILABLE"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "warning_count": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Warning Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "ordinal",
+        "specification",
+        "estimator",
+        "status",
+        "warning_count",
+        "diagnostic",
+        "diagnostic_sha256"
+      ],
+      "title": "FitAttempt",
+      "type": "object"
+    },
+    "InputFileHash": {
+      "additionalProperties": false,
+      "properties": {
+        "relative_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Relative Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 1,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "relative_path",
+        "sha256",
+        "size_bytes"
+      ],
+      "title": "InputFileHash",
+      "type": "object"
+    },
+    "MarginalProbabilityContrast": {
+      "additionalProperties": false,
+      "properties": {
+        "absolute_probability_difference": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Absolute Probability Difference",
+          "type": "number"
+        },
+        "ci_lower": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Ci Lower",
+          "type": "number"
+        },
+        "ci_upper": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Ci Upper",
+          "type": "number"
+        },
+        "comparator_probability": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Comparator Probability",
+          "type": "number"
+        },
+        "intervention_probability": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Intervention Probability",
+          "type": "number"
+        },
+        "rng_seed": {
+          "const": 2026071901,
+          "default": 2026071901,
+          "title": "Rng Seed",
+          "type": "integer"
+        },
+        "simulation_draws": {
+          "const": 5000,
+          "default": 5000,
+          "title": "Simulation Draws",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "comparator_probability",
+        "intervention_probability",
+        "absolute_probability_difference",
+        "ci_lower",
+        "ci_upper"
+      ],
+      "title": "MarginalProbabilityContrast",
+      "type": "object"
+    },
+    "OutcomeModelResult": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "items": {
+            "$ref": "#/$defs/FitAttempt"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Attempts",
+          "type": "array"
+        },
+        "condition_effect": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CoefficientEstimate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "family_cluster_count": {
+          "minimum": 1,
+          "title": "Family Cluster Count",
+          "type": "integer"
+        },
+        "marginal_probability": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MarginalProbabilityContrast"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "observation_count": {
+          "minimum": 1,
+          "title": "Observation Count",
+          "type": "integer"
+        },
+        "outcome": {
+          "enum": [
+            "verified_detection",
+            "false_positive_count",
+            "log_latency"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "scenario_count": {
+          "minimum": 1,
+          "title": "Scenario Count",
+          "type": "integer"
+        },
+        "selected_estimator": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Selected Estimator",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "MIXED_MODEL",
+            "GEE_FALLBACK",
+            "FAILED"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "outcome",
+        "status",
+        "selected_estimator",
+        "observation_count",
+        "family_cluster_count",
+        "scenario_count",
+        "attempts",
+        "condition_effect"
+      ],
+      "title": "OutcomeModelResult",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "analysis_version": {
+      "const": "mixed-effects-analysis-1.0.0",
+      "default": "mixed-effects-analysis-1.0.0",
+      "title": "Analysis Version",
+      "type": "string"
+    },
+    "comparator": {
+      "pattern": "^[a-z][a-z0-9_]{2,127}$",
+      "title": "Comparator",
+      "type": "string"
+    },
+    "dependency_lock_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Dependency Lock Sha256",
+      "type": "string"
+    },
+    "input_files": {
+      "items": {
+        "$ref": "#/$defs/InputFileHash"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "title": "Input Files",
+      "type": "array"
+    },
+    "intervention": {
+      "pattern": "^[a-z][a-z0-9_]{2,127}$",
+      "title": "Intervention",
+      "type": "string"
+    },
+    "numpy_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Numpy Version",
+      "type": "string"
+    },
+    "outcomes": {
+      "items": {
+        "$ref": "#/$defs/OutcomeModelResult"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "title": "Outcomes",
+      "type": "array"
+    },
+    "output_payload_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Output Payload Sha256",
+      "type": "string"
+    },
+    "primary_bootstrap_recomputed": {
+      "const": false,
+      "default": false,
+      "title": "Primary Bootstrap Recomputed",
+      "type": "boolean"
+    },
+    "role": {
+      "const": "explanatory_sensitivity_analysis",
+      "title": "Role",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "mixed-effects-analysis-report-1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "scipy_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Scipy Version",
+      "type": "string"
+    },
+    "source_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    },
+    "statsmodels_version": {
+      "const": "0.14.6",
+      "title": "Statsmodels Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "PARTIAL",
+        "FAIL"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "role",
+    "comparator",
+    "intervention",
+    "statsmodels_version",
+    "numpy_version",
+    "scipy_version",
+    "dependency_lock_sha256",
+    "source_sha256",
+    "input_files",
+    "outcomes",
+    "output_payload_sha256"
+  ],
+  "title": "MixedEffectsAnalysisReport",
+  "type": "object"
+}

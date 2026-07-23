@@ -1,0 +1,27 @@
+{
+  "schema_version": "public-runtime-lock-1.0.0",
+  "analysis_environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.1",
+    "pytest": "9.1.1"
+  },
+  "inference_container": {
+    "image_reference": "docker.io/ollama/ollama@sha256:6345fbc18bd73a1e16404be681dbc6fd291a027cab43ed541abe78c4c81051b0",
+    "image_manifest_digest": "sha256:6345fbc18bd73a1e16404be681dbc6fd291a027cab43ed541abe78c4c81051b0",
+    "platform": "linux/amd64",
+    "platform_digest": "sha256:1d9f0b83b852efef42435e65fd53d0dc4f462a60dabf5c719058c99d47f32e36",
+    "compute_mode": "gpu",
+    "runtime_network": "none",
+    "external_transfer_bytes": 0,
+    "host_network": false,
+    "privileged": false,
+    "docker_socket_mount_count": 0,
+    "evaluator_only_mount_count": 0,
+    "root_filesystem_read_only": true,
+    "model_volume_read_only": true,
+    "no_new_privileges": true,
+    "cap_drop_all": true,
+    "inference_concurrency": 1
+  }
+}
+

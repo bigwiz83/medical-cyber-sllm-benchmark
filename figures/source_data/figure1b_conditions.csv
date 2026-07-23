@@ -1,0 +1,11 @@
+condition_id,condition,backbone,architecture,retrieval,evidence_checking,context_role
+qwen_single_rag,Qwen single-RAG,Qwen 3.5 27B,Single-agent self-consistency,Visible,Integrated,Integrated
+qwen_autonomous_team,Qwen autonomous team,Qwen 3.5 27B,Model-planned bounded specialist team,Visible,Model-selected within fixed boundary,Model-selected within fixed boundary
+qwen_fixed_team,Qwen fixed team,Qwen 3.5 27B,Fixed specialist team,Visible,Retained,Retained
+qwen_without_evidence_check,Qwen without evidence checking,Qwen 3.5 27B,Fixed specialist team ablation,Visible,Removed,Retained
+qwen_without_context_role,Qwen without clinical-context agent,Qwen 3.5 27B,Fixed specialist team ablation,Visible,Retained,Removed
+qwen_without_retrieval,Qwen without retrieval,Qwen 3.5 27B,Fixed specialist team ablation,Withheld,Retained,Retained
+gemma_single_rag,Gemma single-RAG,Gemma 3 27B,Single-agent self-consistency,Visible,Integrated,Integrated
+gemma_fixed_team,Gemma fixed team,Gemma 3 27B,Fixed specialist team,Visible,Retained,Retained
+gpt_oss_single_rag,gpt-oss single-RAG,gpt-oss 20B,Single-agent self-consistency,Visible,Integrated,Integrated
+gpt_oss_fixed_team,gpt-oss fixed team,gpt-oss 20B,Fixed specialist team,Visible,Retained,Retained

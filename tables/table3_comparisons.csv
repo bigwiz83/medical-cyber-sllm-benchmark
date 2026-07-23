@@ -1,0 +1,12 @@
+comparison,endpoint,effect,ci_lower,ci_upper,raw_p,adjusted_p,analysis_status,interpretation
+Qwen fixed team − single-RAG,Evidence-verified detection F1,-0.029495,-0.13167,0.066667,0.583142,,Confirmatory,No evidence of improved F1
+Evidence checking retained − removed,Evidence-verified detection F1,0,0,0,1,1,Multiplicity-adjusted,No observed difference
+Retrieval retained − removed,Recent-KEV affected-target recall,0.75,0.5,0.916667,9.999e-05,0.00019998,Multiplicity-adjusted,Retrieval benefit supported
+Clinical-context agent retained − removed,Evidence-verified detection F1,0,0,0,,,Descriptive technical ablation,No observed difference
+Gemma fixed team − single-RAG,Evidence-verified detection F1,-0.028139,-0.226852,0.150878,0.787521,,Backbone component,Direction uncertain
+gpt-oss fixed team − single-RAG,Evidence-verified detection F1,0.168673,-0.006807,0.344814,0.0638936,,Backbone component,Positive direction; interval includes zero
+Worst-case fixed-team effect across backbones,Minimum evidence-verified F1 difference,-0.029495,-0.226852,0.035363,,,Compound robustness estimate,No consistent fixed-team advantage
+Qwen fixed team − Gemma fixed team,Evidence-verified detection F1,0.390365,0.212121,0.57424,9.999e-05,0.00019998,Multiplicity-adjusted,Higher F1 with the tested Qwen configuration
+Qwen fixed team − gpt-oss fixed team,Evidence-verified detection F1,0.343782,0.232146,0.462412,9.999e-05,0.00019998,Multiplicity-adjusted,Higher F1 with the tested Qwen configuration
+Qwen autonomous team − fixed team,Evidence-verified detection F1,0.010733,-0.119861,0.143774,0.880112,,Confirmatory,No evidence of superiority
+Qwen autonomous team − single-RAG,Evidence-verified detection F1,-0.018762,-0.121053,0.065163,0.716128,,Descriptive comparison,No evidence of a difference

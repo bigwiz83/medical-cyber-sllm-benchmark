@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Please cite the associated article and the versioned repository release."
+title: "Medical Cybersecurity sLLM Benchmark"
+type: dataset
+authors:
+  - family-names: "Jang"
+    given-names: "Bum-Sup"
+    orcid: "https://orcid.org/0000-0002-7064-9855"
+repository-code: "https://github.com/bigwiz83/medical-cyber-sllm-benchmark"
+version: "1.0.0"
+date-released: 2026-07-23

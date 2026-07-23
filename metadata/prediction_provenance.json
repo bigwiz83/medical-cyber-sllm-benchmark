@@ -1,0 +1,83 @@
+{
+  "schema_version": "public-prediction-provenance-1.0.0",
+  "study_id": "MEDCYBER-SLLM-PAPER-01",
+  "projection": {
+    "row_count": 3000,
+    "condition_count": 10,
+    "scenario_count": 60,
+    "repetitions": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "fields": [
+      "schema_version",
+      "condition_id",
+      "blind_case_id",
+      "run_index",
+      "run_status",
+      "call_seed_schedule",
+      "retrieved_object_ids",
+      "final_output"
+    ],
+    "complete": 2759,
+    "failed": 236,
+    "refusal": 5,
+    "structured_output_rows": 2764,
+    "null_output_rows": 236
+  },
+  "seed_schedule": {
+    "canonical_schedule_sha256": "2a3935e3319c4a110069fc9530829ace545c5418abcdc2860560b1aa0282058a",
+    "canonical_entries": 1500,
+    "per_prediction_slots": 5,
+    "observed_source_seed_checks": 15045,
+    "observed_seed_mismatches": 0,
+    "derived_or_imputed_seeds": 0
+  },
+  "source_groups": [
+    {
+      "source_group": "qwen_single_rag_and_qwen_fixed_team",
+      "cell_count": 600,
+      "schema_and_self_hash_validation": "PASS",
+      "source_snapshot_aggregate_sha256": "8630c3fa8548cd3640624d491897ac290979e1c69069de6cb33a7a02475988bb"
+    },
+    {
+      "source_group": "seven_model_and_ablation_conditions",
+      "cell_count": 2100,
+      "schema_and_self_hash_validation": "PASS",
+      "source_snapshot_aggregate_sha256": "85035400687220e25d413bc475b040c2637b09b0258c2a337ab9ee238c975ecf"
+    },
+    {
+      "source_group": "qwen_autonomous_team",
+      "cell_count": 300,
+      "schema_and_self_hash_validation": "PASS",
+      "source_snapshot_aggregate_sha256": "8eba63e19f331031242f1482b176f1a7db8b5f0c1364fd236800508f4560e4a5"
+    }
+  ],
+  "source_snapshot_digest_method": "sha256_of_canonical_json_sorted_file_sha256_list",
+  "excluded_content": [
+    "intermediate model outputs",
+    "planner and specialist text",
+    "transport response bodies",
+    "retry histories",
+    "operational approvals and state records"
+  ],
+  "artifacts": {
+    "prediction_path": "data/predictions/final_predictions.jsonl",
+    "prediction_sha256": "7d7cc42f2747c65114f62f945e48ac9e5895bc1f7b04dec5efea7f2cc934f3f5",
+    "prediction_size_bytes": 2889091,
+    "prediction_schema_path": "schemas/final_prediction.schema.json",
+    "prediction_schema_sha256": "0f89a078fa10c9cb45df00ad1e906a23a5cc83e3a1163e0db3a0bef73293a1d1",
+    "scorer_path": "src/medcyber_benchmark/scoring.py",
+    "scorer_sha256": "1dc0a883e3d246bae6ca1c73eb1ea6254f4059f6c0bf48c65509ca92b5efa060"
+  },
+  "score_reproduction": {
+    "status": "PASS",
+    "field_equal_rows": 3000,
+    "byte_equal": true,
+    "rescored_sha256": "0418d9ae9bf1cd5cfa7ed9c472a1de517d3ae00f6666b4b4a092f65c488b23c1",
+    "released_score_matrix_sha256": "0418d9ae9bf1cd5cfa7ed9c472a1de517d3ae00f6666b4b4a092f65c488b23c1"
+  }
+}

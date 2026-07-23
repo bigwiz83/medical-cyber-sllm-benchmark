@@ -1,0 +1,7 @@
+stratum,families,scenarios,positive_scenarios,paired_negative_scenarios,clean_scenarios
+"Recent KEV, 0–30 days",4,8,4,4,0
+"Recent KEV, 31–60 days",4,8,4,4,0
+"Recent KEV, 61–90 days",4,8,4,4,0
+Other CVE,6,12,6,6,0
+Synthetic misconfiguration,7,14,7,7,0
+Clean control,5,10,0,0,10

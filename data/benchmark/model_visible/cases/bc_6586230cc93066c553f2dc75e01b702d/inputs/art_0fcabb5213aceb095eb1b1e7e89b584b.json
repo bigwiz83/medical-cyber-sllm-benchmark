@@ -1,0 +1,1 @@
+{"topology":{"default_cross_zone_policy":"deny","edges":[{"from":"asset-01","protocol":"event_forwarding","to":"audit-01"},{"from":"support-jump-01","preconditions":["support_window_open","device_trust_present"],"protocol":"synthetic_admin_channel","to":"asset-01"}],"nodes":["asset-01","identity-01","audit-01","support-jump-01"],"research_to_clinical":"allow"}}

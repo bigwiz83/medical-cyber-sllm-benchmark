@@ -1,0 +1,1 @@
+{"fact_id":"FACT-CLEAN-CLOSED-WORLD","post_output_mutable":false,"rows":[{"left":"affected_candidate_count","negative_reason":"clean_candidate_absent","operator":"equal","output":"not_affected","right":0},{"otherwise":true,"output":"insufficient_evidence"}],"rule_id":"RULE-CLEAN-CLOSED-WORLD","schema_version":"reference-decision-table-1.0.0"}

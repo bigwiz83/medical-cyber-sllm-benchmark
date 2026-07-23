@@ -1,0 +1,83 @@
+{
+  "$defs": {
+    "AffectedStatus": {
+      "enum": ["affected", "not_affected", "insufficient_evidence"],
+      "title": "AffectedStatus",
+      "type": "string"
+    },
+    "ApplicabilityOutput": {
+      "additionalProperties": false,
+      "description": "Structured applicability facts; no executable remediation text is accepted.",
+      "properties": {
+        "product_or_control": {"maxLength": 2048, "minLength": 1, "title": "Product Or Control", "type": "string"},
+        "installed_or_observed_state": {"maxLength": 2048, "minLength": 1, "title": "Installed Or Observed State", "type": "string"},
+        "affected_or_required_state": {"maxLength": 2048, "minLength": 1, "title": "Affected Or Required State", "type": "string"},
+        "exposure": {"$ref": "#/$defs/ExposureStatus"},
+        "prerequisites": {"$ref": "#/$defs/PrerequisiteStatus"},
+        "rationale": {"maxLength": 2048, "minLength": 1, "title": "Rationale", "type": "string"}
+      },
+      "required": ["product_or_control", "installed_or_observed_state", "affected_or_required_state", "exposure", "prerequisites", "rationale"],
+      "title": "ApplicabilityOutput",
+      "type": "object"
+    },
+    "ExposureStatus": {
+      "enum": ["exposed", "not_exposed", "unknown", "not_applicable"],
+      "title": "ExposureStatus",
+      "type": "string"
+    },
+    "FindingType": {
+      "enum": ["cve", "synthetic_misconfiguration"],
+      "title": "FindingType",
+      "type": "string"
+    },
+    "OutputStatus": {
+      "enum": ["ok", "refusal"],
+      "title": "OutputStatus",
+      "type": "string"
+    },
+    "PrerequisiteStatus": {
+      "enum": ["met", "not_met", "unknown", "not_applicable"],
+      "title": "PrerequisiteStatus",
+      "type": "string"
+    },
+    "ResearchFinding": {
+      "additionalProperties": false,
+      "description": "Strict model-authored finding used by the separate evaluator.",
+      "properties": {
+        "finding_type": {"$ref": "#/$defs/FindingType"},
+        "target_key": {"maxLength": 128, "pattern": "^(?:CVE-[0-9]{4}-[0-9]{4,}|MCFG\\.[A-Z0-9][A-Z0-9_.-]*)$", "title": "Target Key", "type": "string"},
+        "asset_id": {"maxLength": 128, "minLength": 1, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$", "title": "Asset Id", "type": "string"},
+        "affected_status": {"$ref": "#/$defs/AffectedStatus"},
+        "applicability": {"$ref": "#/$defs/ApplicabilityOutput"},
+        "evidence_ids": {
+          "items": {"maxLength": 36, "pattern": "^(?:art|obj)_[a-f0-9]{32}$", "type": "string"},
+          "maxItems": 16,
+          "minItems": 1,
+          "uniqueItems": true,
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": ["finding_type", "target_key", "asset_id", "affected_status", "applicability", "evidence_ids"],
+      "title": "ResearchFinding",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Atomic strict JSON response for every scheduled model call.",
+  "properties": {
+    "status": {"$ref": "#/$defs/OutputStatus"},
+    "findings": {"default": [], "items": {"$ref": "#/$defs/ResearchFinding"}, "maxItems": 32, "title": "Findings", "type": "array"},
+    "refusal_reason": {
+      "anyOf": [
+        {"maxLength": 2048, "minLength": 1, "type": "string"},
+        {"type": "null"}
+      ],
+      "default": null,
+      "title": "Refusal Reason"
+    }
+  },
+  "required": ["status"],
+  "title": "FindingEnvelope",
+  "type": "object"
+}

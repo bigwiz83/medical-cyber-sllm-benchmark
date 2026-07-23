@@ -1,0 +1,40 @@
+{
+  "schema_version": "public-model-lock-1.0.0",
+  "weights_redistributed": false,
+  "models": [
+    {
+      "model_id": "qwen3.5:27b",
+      "backbone": "Qwen 3.5 27B",
+      "format": "gguf",
+      "quantization": "Q4_K_M",
+      "manifest_digest": "sha256:7653528ba5cba4dd8e19da24aaddc7f4d0b5ecd93571c0825dfd4137958ec06e",
+      "weight_blob_digest": "sha256:d4b8b4f4c350f5d322dc8235175eeae02d32c6f3fd70bdb9ea481e3abb7d7fc4",
+      "weight_blob_size_bytes": 17420420832,
+      "license_id": "Apache-2.0",
+      "source_url": "https://ollama.com/library/qwen3.5:27b"
+    },
+    {
+      "model_id": "gemma3:27b",
+      "backbone": "Gemma 3 27B",
+      "format": "gguf",
+      "quantization": "Q4_K_M",
+      "manifest_digest": "sha256:a418f5838eaf7fe2cfe0a3046c8384b68ba43a4435542c942f9db00a5f342203",
+      "weight_blob_digest": "sha256:e796792eba26c4d3b04b0ac5adb01a453dd9ec2dfd83b6c59cbf6fe5f30b0f68",
+      "weight_blob_size_bytes": 17396927584,
+      "license_id": "Gemma-Terms-of-Use",
+      "source_url": "https://ollama.com/library/gemma3:27b"
+    },
+    {
+      "model_id": "gpt-oss:20b",
+      "backbone": "gpt-oss 20B",
+      "format": "gguf",
+      "quantization": "MXFP4",
+      "manifest_digest": "sha256:17052f91a42e97930aa6e28a6c6c06a983e6a58dbb00434885a0cf5313e376f7",
+      "weight_blob_digest": "sha256:e7b273f9636059a689e3ddcab3716e4f65abe0143ac978e46673ad0e52d09efb",
+      "weight_blob_size_bytes": 13793422144,
+      "license_id": "Apache-2.0",
+      "source_url": "https://ollama.com/library/gpt-oss:20b"
+    }
+  ]
+}
+

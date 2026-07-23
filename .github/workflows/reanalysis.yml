@@ -1,0 +1,25 @@
+name: Reanalysis
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+        with:
+          python-version: "3.12.3"
+          cache: pip
+      - run: python -m pip install -r requirements-lock.txt
+      - run: python scripts/verify_release.py
+      - run: python scripts/score_predictions.py --check
+      - run: python scripts/reproduce_analysis.py --check
+      - run: python scripts/build_publication_tables.py --check
+      - run: python scripts/reproduce_mixed_effects.py --check
+      - run: python -m pytest -p no:cacheprovider

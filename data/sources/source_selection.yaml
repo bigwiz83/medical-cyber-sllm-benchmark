@@ -1,0 +1,148 @@
+selection_version: research-cve-selection-0.1.0
+study_id: MEDCYBER-SLLM-PAPER-01
+status: FROZEN_FOR_STUDY
+anchor:
+  t0: '2026-07-18'
+  cisa_catalog_version: '2026.07.16'
+  cisa_catalog_released_at: '2026-07-16T17:00:15.6845Z'
+  cisa_snapshot_path: data/sources/known_exploited_vulnerabilities.json
+  cisa_snapshot_sha256: 41d27023a5912a49ca2b06370550fa6da50e35794c269766a6332618d82f243e
+  window_definition: inclusive_calendar_day_age_by_CISA_dateAdded
+selection_policy:
+  recent_kev:
+    - present_in_locked_cisa_catalog
+    - dateAdded_in_prespecified_window
+    - public_vendor_or_CNA_applicability_record_available
+    - plausible_synthetic_hospital_asset_mapping
+    - no_vulnerable_software_execution_required
+    - no_product_family_reused_in_prior_benchmark_development
+  historical:
+    - public_vendor_or_CNA_applicability_record_available
+    - exact_affected_and_hard_negative_fact_can_be_frozen
+    - plausible_synthetic_hospital_asset_mapping
+    - no_vulnerable_software_execution_required
+
+# Ordering is intentional and deterministic: recent window, allocation family,
+# then historical.
+cve_sources:
+  - cve_id: CVE-2026-58644
+    family_id: EVAL-KEV-A-01
+    stratum: recent_kev_0_30
+    kev_date_added: '2026-07-16'
+    age_days_at_t0: 2
+    canonical_product: Microsoft SharePoint Server
+    synthetic_hospital_role: intranet_collaboration_server
+  - cve_id: CVE-2026-48282
+    family_id: EVAL-KEV-A-02
+    stratum: recent_kev_0_30
+    kev_date_added: '2026-07-07'
+    age_days_at_t0: 11
+    canonical_product: Adobe ColdFusion
+    synthetic_hospital_role: legacy_integration_web_server
+    selection_note: replaces_CVE-2026-12569_because_PTC_primary_page_requires_login
+  - cve_id: CVE-2026-20230
+    family_id: EVAL-KEV-A-03
+    stratum: recent_kev_0_30
+    kev_date_added: '2026-06-25'
+    age_days_at_t0: 23
+    canonical_product: Cisco Unified Communications Manager
+    synthetic_hospital_role: clinical_telephony_server
+  - cve_id: CVE-2026-20253
+    family_id: EVAL-KEV-A-04
+    stratum: recent_kev_0_30
+    kev_date_added: '2026-06-18'
+    age_days_at_t0: 30
+    canonical_product: Splunk Enterprise
+    synthetic_hospital_role: security_log_analytics
+
+  - cve_id: CVE-2026-42271
+    family_id: EVAL-KEV-B-01
+    stratum: recent_kev_31_60
+    kev_date_added: '2026-06-08'
+    age_days_at_t0: 40
+    canonical_product: BerriAI LiteLLM
+    synthetic_hospital_role: synthetic_clinical_ai_gateway
+    selection_note: replaces_CVE-2026-35273_because_fixed_patch_details_require_vendor_login
+  - cve_id: CVE-2026-10520
+    family_id: EVAL-KEV-B-02
+    stratum: recent_kev_31_60
+    kev_date_added: '2026-06-11'
+    age_days_at_t0: 37
+    canonical_product: Ivanti Sentry
+    synthetic_hospital_role: managed_mobile_access_gateway
+  - cve_id: CVE-2026-50751
+    family_id: EVAL-KEV-B-03
+    stratum: recent_kev_31_60
+    kev_date_added: '2026-06-08'
+    age_days_at_t0: 40
+    canonical_product: Check Point Security Gateway
+    synthetic_hospital_role: remote_access_gateway
+  - cve_id: CVE-2026-34926
+    family_id: EVAL-KEV-B-04
+    stratum: recent_kev_31_60
+    kev_date_added: '2026-05-21'
+    age_days_at_t0: 58
+    canonical_product: Trend Micro Apex One
+    synthetic_hospital_role: endpoint_security_manager
+
+  - cve_id: CVE-2026-42897
+    family_id: EVAL-KEV-C-01
+    stratum: recent_kev_61_90
+    kev_date_added: '2026-05-15'
+    age_days_at_t0: 64
+    canonical_product: Microsoft Exchange Server
+    synthetic_hospital_role: workforce_messaging_server
+  - cve_id: CVE-2024-7399
+    family_id: EVAL-KEV-C-02
+    stratum: recent_kev_61_90
+    kev_date_added: '2026-04-24'
+    age_days_at_t0: 85
+    canonical_product: Samsung MagicINFO 9 Server
+    synthetic_hospital_role: waiting_room_signage_manager
+  - cve_id: CVE-2024-1708
+    family_id: EVAL-KEV-C-03
+    stratum: recent_kev_61_90
+    kev_date_added: '2026-04-28'
+    age_days_at_t0: 81
+    canonical_product: ConnectWise ScreenConnect
+    synthetic_hospital_role: biomedical_device_remote_support_server
+    selection_note: replaces_CVE-2025-32975_because_vendor_KB_blocks_automated_retrieval_and_CNA_has_no_range
+  - cve_id: CVE-2023-27351
+    family_id: EVAL-KEV-C-04
+    stratum: recent_kev_61_90
+    kev_date_added: '2026-04-20'
+    age_days_at_t0: 89
+    canonical_product: PaperCut NG/MF
+    synthetic_hospital_role: clinical_print_manager
+
+  - cve_id: CVE-2021-44228
+    family_id: EVAL-CVE-01
+    stratum: other_cve
+    canonical_product: Apache Log4j
+    synthetic_hospital_role: integration_logging_library
+  - cve_id: CVE-2021-41773
+    family_id: EVAL-CVE-02
+    stratum: other_cve
+    canonical_product: Apache HTTP Server
+    synthetic_hospital_role: results_portal_web_server
+  - cve_id: CVE-2024-3094
+    family_id: EVAL-CVE-03
+    stratum: other_cve
+    canonical_product: XZ Utils
+    synthetic_hospital_role: linux_appliance_base_component
+  - cve_id: CVE-2023-22515
+    family_id: EVAL-CVE-04
+    stratum: other_cve
+    canonical_product: Atlassian Confluence Data Center and Server
+    synthetic_hospital_role: internal_runbook_server
+  - cve_id: CVE-2022-1388
+    family_id: EVAL-CVE-05
+    stratum: other_cve
+    canonical_product: F5 BIG-IP
+    synthetic_hospital_role: application_delivery_controller
+  - cve_id: CVE-2024-3400
+    family_id: EVAL-CVE-06
+    stratum: other_cve
+    canonical_product: Palo Alto Networks PAN-OS
+    synthetic_hospital_role: clinical_network_perimeter_gateway
+    selection_note: selected_for_public_machine_readable_affected_and_fixed_ranges

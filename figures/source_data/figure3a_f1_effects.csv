@@ -1,0 +1,11 @@
+comparison,effect,ci_lower,ci_upper,raw_p,adjusted_p,analysis_status,interpretation
+Qwen fixed team − single-RAG,-0.029495178672717004,-0.13167013167013164,0.06666666666666665,0.5831416858314169,,Confirmatory,No evidence of improved F1
+Evidence checking retained − removed,0.0,0.0,0.0,1.0,1.0,Multiplicity-adjusted,No observed difference
+Clinical-context agent retained − removed,0.0,0.0,0.0,,,Descriptive technical ablation,No observed difference
+Gemma fixed team − single-RAG,-0.028139,-0.226852,0.150878,0.787521,,Backbone component,Direction uncertain
+gpt-oss fixed team − single-RAG,0.168673,-0.006807,0.344814,0.0638936,,Backbone component,Positive direction; interval includes zero
+Worst-case fixed-team effect across backbones,-0.029495,-0.226852,0.035363,,,Compound robustness estimate,No consistent fixed-team advantage
+Qwen fixed team − Gemma fixed team,0.390365,0.212121,0.57424,9.999e-05,0.00019998,Multiplicity-adjusted,Higher F1 with the tested Qwen configuration
+Qwen fixed team − gpt-oss fixed team,0.343782,0.232146,0.462412,9.999e-05,0.00019998,Multiplicity-adjusted,Higher F1 with the tested Qwen configuration
+Qwen autonomous team − fixed team,0.01073345259391778,-0.11986062717770041,0.14377406931964054,0.8801119888011198,,Confirmatory,No evidence of superiority
+Qwen autonomous team − single-RAG,-0.018761726078799223,-0.1210526315789473,0.06516290726817042,0.7161283871612839,,Descriptive comparison,No evidence of a difference

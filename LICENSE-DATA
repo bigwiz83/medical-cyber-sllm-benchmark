@@ -1,0 +1,31 @@
+# Data and documentation license
+
+Copyright 2026 Bum-Sup Jang.
+
+Except for the exclusions below, all study-authored synthetic and derived material in this
+repository—including synthetic scenarios, reference-standard annotations created by the study,
+structured prediction envelopes, derived score tables, statistical outputs, figure and table source
+data, and study-authored documentation—is licensed under the Creative Commons Attribution 4.0 International
+license (CC BY 4.0):
+
+https://creativecommons.org/licenses/by/4.0/
+
+When reusing the licensed material, cite Bum-Sup Jang, the associated article, and the immutable
+repository release or commit, identify modifications, and retain a link to CC BY 4.0.
+
+## Exclusions and upstream terms
+
+- Source code is licensed separately under the repository `LICENSE` (Apache License 2.0).
+- CVE Program records are not relicensed by this file. Their use remains governed by the official
+  CVE Terms of Use at https://www.cve.org/legal/termsofuse. Retain the applicable designation:
+  Copyright © 1999–2026, The MITRE Corporation; CVE Usage terms and trademarks continue to apply.
+- The frozen CISA Known Exploited Vulnerabilities catalog is provided under CC0 1.0 as stated at
+  https://www.cisa.gov/sites/default/files/licenses/kev/license.txt. That dedication does not cover
+  linked third-party material, CISA/DHS names, seals, logos, or other marks and does not imply
+  endorsement.
+- Model weights, container-image layers, and raw generation transcripts are not distributed by this
+  repository and are not licensed by this file.
+- Any file carrying a more specific source notice remains subject to that notice. See
+  `THIRD_PARTY_NOTICES.md` and `data/sources/NOTICE.md`.
+
+Nothing in this file grants rights that the licensor does not own or control.

@@ -1,0 +1,7 @@
+condition_id,condition,window,affected_target_recall,positive_cells,independent_families
+qwen_fixed_team,Qwen fixed team,0–30 days,1.0,20,4
+qwen_fixed_team,Qwen fixed team,31–60 days,0.5,20,4
+qwen_fixed_team,Qwen fixed team,61–90 days,0.75,20,4
+qwen_without_retrieval,Qwen without retrieval,0–30 days,0.0,20,4
+qwen_without_retrieval,Qwen without retrieval,31–60 days,0.0,20,4
+qwen_without_retrieval,Qwen without retrieval,61–90 days,0.0,20,4

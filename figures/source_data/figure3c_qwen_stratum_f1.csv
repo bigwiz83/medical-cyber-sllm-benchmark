@@ -1,0 +1,16 @@
+condition_id,condition,stratum,f1,tp,fp,fn,cells
+qwen_single_rag,Qwen single-RAG,"Recent KEV, 0–30 days",0.8571428571428571,15,0,5,40
+qwen_single_rag,Qwen single-RAG,"Recent KEV, 31–60 days",0.75,15,5,5,40
+qwen_single_rag,Qwen single-RAG,"Recent KEV, 61–90 days",0.8571428571428571,15,0,5,40
+qwen_single_rag,Qwen single-RAG,Other CVE,0.6666666666666666,20,10,10,60
+qwen_single_rag,Qwen single-RAG,Synthetic misconfiguration,0.0,0,0,35,70
+qwen_fixed_team,Qwen fixed team,"Recent KEV, 0–30 days",0.8888888888888888,20,5,0,40
+qwen_fixed_team,Qwen fixed team,"Recent KEV, 31–60 days",0.5714285714285714,10,5,10,40
+qwen_fixed_team,Qwen fixed team,"Recent KEV, 61–90 days",0.8571428571428571,15,0,5,40
+qwen_fixed_team,Qwen fixed team,Other CVE,0.6153846153846154,20,15,10,60
+qwen_fixed_team,Qwen fixed team,Synthetic misconfiguration,0.0,0,0,35,70
+qwen_autonomous_team,Qwen autonomous team,"Recent KEV, 0–30 days",0.6666666666666666,10,0,10,40
+qwen_autonomous_team,Qwen autonomous team,"Recent KEV, 31–60 days",0.75,15,5,5,40
+qwen_autonomous_team,Qwen autonomous team,"Recent KEV, 61–90 days",0.6666666666666666,10,0,10,40
+qwen_autonomous_team,Qwen autonomous team,Other CVE,0.8333333333333334,25,5,5,60
+qwen_autonomous_team,Qwen autonomous team,Synthetic misconfiguration,0.0,0,0,35,70

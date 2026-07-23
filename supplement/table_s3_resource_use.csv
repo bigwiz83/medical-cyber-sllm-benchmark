@@ -1,0 +1,11 @@
+condition_id,condition,model_attempts,retries,input_tokens,output_tokens,recorded_latency_seconds,external_transfer_bytes,model_authored_commands_executed
+qwen_single_rag,Qwen single-RAG,1515,NE,18755285,361485,15851.116795,0,0
+qwen_autonomous_team,Qwen autonomous team,1530,85,19232295,403465,15458.687666,0,0
+qwen_fixed_team,Qwen fixed team,1530,NE,19199715,343855,15585.253056,0,0
+qwen_without_evidence_check,Qwen without evidence checking,1530,70,15506810,291364,12259.745644,0,0
+qwen_without_context_role,Qwen without clinical-context agent,1530,70,15503110,289374,12208.85826,0,0
+qwen_without_retrieval,Qwen without retrieval,1460,80,1967230,81975,4789.740494,0,0
+gemma_single_rag,Gemma single-RAG,1995,720,25782745,404340,20307.107702,0,0
+gemma_fixed_team,Gemma fixed team,1640,310,21282705,282600,15493.74358,0,0
+gpt_oss_single_rag,gpt-oss single-RAG,1621,121,17841315,126531,6187.201488,0,0
+gpt_oss_fixed_team,gpt-oss fixed team,1533,87,16993786,145860,5583.229105,0,0

@@ -1,0 +1,1 @@
+{"control_id":"MCFG.FHIR.AUTH_REQUIRED","evidence_fields":["authentication_mode","anonymous_read"],"rule":"authentication_mode must be oauth2 and anonymous_read must be false","subject":"clinical FHIR API","title":"FHIR read access authentication"}

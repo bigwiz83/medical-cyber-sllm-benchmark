@@ -1,0 +1,1 @@
+{"control_id":"MCFG.AUDIT.REQUIRED_EVENTS_COMPLETE","evidence_fields":["required_event_coverage"],"rule":"required_event_coverage must be complete","subject":"synthetic audit pipeline","title":"Security audit event coverage"}

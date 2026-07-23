@@ -1,0 +1,4 @@
+condition_id,condition,fp,cells
+qwen_single_rag,Qwen single-RAG,0,50
+qwen_fixed_team,Qwen fixed team,0,50
+qwen_autonomous_team,Qwen autonomous team,0,50

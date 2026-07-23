@@ -1,0 +1,293 @@
+{
+  "$defs": {
+    "Applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "product_or_control": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "Product Or Control",
+          "type": "string"
+        },
+        "installed_or_observed_state": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "Installed Or Observed State",
+          "type": "string"
+        },
+        "affected_or_required_state": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "Affected Or Required State",
+          "type": "string"
+        },
+        "exposure": {
+          "enum": [
+            "exposed",
+            "not_exposed",
+            "unknown",
+            "not_applicable"
+          ],
+          "title": "Exposure",
+          "type": "string"
+        },
+        "prerequisites": {
+          "enum": [
+            "met",
+            "not_met",
+            "unknown",
+            "not_applicable"
+          ],
+          "title": "Prerequisites",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_or_control",
+        "installed_or_observed_state",
+        "affected_or_required_state",
+        "exposure",
+        "prerequisites",
+        "rationale"
+      ],
+      "title": "Applicability",
+      "type": "object"
+    },
+    "CallSeed": {
+      "additionalProperties": false,
+      "properties": {
+        "call_slot": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Call Slot",
+          "type": "integer"
+        },
+        "seed": {
+          "maximum": 4294967295,
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "call_slot",
+        "seed"
+      ],
+      "title": "CallSeed",
+      "type": "object"
+    },
+    "FinalOutput": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "ok",
+            "refusal"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "findings": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Finding"
+          },
+          "maxItems": 32,
+          "title": "Findings",
+          "type": "array"
+        },
+        "refusal_reason": {
+          "anyOf": [
+            {
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Refusal Reason"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "FinalOutput",
+      "type": "object"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "finding_type": {
+          "enum": [
+            "cve",
+            "synthetic_misconfiguration"
+          ],
+          "title": "Finding Type",
+          "type": "string"
+        },
+        "target_key": {
+          "maxLength": 128,
+          "pattern": "^(?:CVE-[0-9]{4}-[0-9]{4,}|MCFG\\.[A-Z0-9][A-Z0-9_.-]*)$",
+          "title": "Target Key",
+          "type": "string"
+        },
+        "asset_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "affected_status": {
+          "enum": [
+            "affected",
+            "not_affected",
+            "insufficient_evidence"
+          ],
+          "title": "Affected Status",
+          "type": "string"
+        },
+        "applicability": {
+          "$ref": "#/$defs/Applicability"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "verification_status": {
+          "anyOf": [
+            {
+              "const": "verified",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verification Status"
+        }
+      },
+      "required": [
+        "finding_type",
+        "target_key",
+        "asset_id",
+        "affected_status",
+        "applicability",
+        "evidence_ids"
+      ],
+      "title": "Finding",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "public-final-prediction-1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "condition_id": {
+      "enum": [
+        "qwen_single_rag",
+        "qwen_autonomous_team",
+        "qwen_fixed_team",
+        "qwen_without_evidence_check",
+        "qwen_without_context_role",
+        "qwen_without_retrieval",
+        "gemma_single_rag",
+        "gemma_fixed_team",
+        "gpt_oss_single_rag",
+        "gpt_oss_fixed_team"
+      ],
+      "title": "Condition Id",
+      "type": "string"
+    },
+    "blind_case_id": {
+      "pattern": "^bc_[a-f0-9]{32}$",
+      "title": "Blind Case Id",
+      "type": "string"
+    },
+    "run_index": {
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Run Index",
+      "type": "integer"
+    },
+    "run_status": {
+      "enum": [
+        "complete",
+        "failed",
+        "refusal"
+      ],
+      "title": "Run Status",
+      "type": "string"
+    },
+    "call_seed_schedule": {
+      "maxItems": 5,
+      "minItems": 5,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/CallSeed"
+        },
+        {
+          "$ref": "#/$defs/CallSeed"
+        },
+        {
+          "$ref": "#/$defs/CallSeed"
+        },
+        {
+          "$ref": "#/$defs/CallSeed"
+        },
+        {
+          "$ref": "#/$defs/CallSeed"
+        }
+      ],
+      "title": "Call Seed Schedule",
+      "type": "array"
+    },
+    "retrieved_object_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Retrieved Object Ids",
+      "type": "array"
+    },
+    "final_output": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FinalOutput"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "condition_id",
+    "blind_case_id",
+    "run_index",
+    "run_status",
+    "call_seed_schedule",
+    "retrieved_object_ids",
+    "final_output"
+  ],
+  "title": "FinalPrediction",
+  "type": "object"
+}

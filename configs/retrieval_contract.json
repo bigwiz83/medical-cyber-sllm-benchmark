@@ -1,0 +1,21 @@
+{
+  "schema_version": "public-retrieval-contract-1.0.0",
+  "retriever_version": "fixed-lexical-overlap-0.1.0",
+  "token_pattern": "[A-Za-z0-9][A-Za-z0-9_.:-]{1,}",
+  "token_normalization": "Unicode casefold",
+  "query_term_multiplicity": "unique",
+  "document_term_multiplicity": "retained",
+  "score": "sum(document_terms.count(term) for term in unique_query_terms)",
+  "ranking": ["descending score", "ascending corpus_object_id"],
+  "retrieval_top_k": 6,
+  "maximum_bytes_per_retrieved_object": 5000,
+  "maximum_retrieved_bytes": 30000,
+  "truncation": "longest valid UTF-8 prefix within the byte limit",
+  "flattening": {
+    "mapping": "sort entries by stringified key; concatenate key and recursively flattened value",
+    "sequence": "preserve order and recursively concatenate elements",
+    "null": "literal null",
+    "scalar": "Python string representation used by the frozen runner"
+  },
+  "implementation": "src/medcyber_benchmark/retrieval.py"
+}

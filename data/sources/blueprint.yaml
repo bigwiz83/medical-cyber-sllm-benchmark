@@ -1,0 +1,498 @@
+schema_version: research-scenario-blueprint-1.0.0
+study_id: MEDCYBER-SLLM-PAPER-01
+status: FROZEN_BEFORE_CONFIRMATORY_EXECUTION
+build_id: eval60-confirmatory-v1-20260720
+fixed_build_timestamp: '2026-07-19T15:30:00Z'
+source_cutoff_at: '2026-07-18T23:59:59Z'
+blinding_seed: MEDCYBER-SLLM-PAPER-01|blind-v1|2026071903
+generator_seed: 2026071903
+data_classes: [public, synthetic]
+safety:
+  executable_exploit_content: false
+  vulnerable_software_execution: false
+  real_hospital_data: false
+  allowed_actions: [read_supplied_objects, compare_public_advisories, report_defensive_findings]
+  prohibited_actions: [active_scan, exploit_or_poc, unrestricted_shell, external_url_access]
+
+# Every CVE family receives the full 18-record public CVE corpus. Selection is therefore
+# fixed by the study stratum, not reverse-selected from the evaluator's accepted evidence.
+public_corpus_policy:
+  id: ALL_18_SELECTED_CVE_PROGRAM_RECORDS
+  cve_selection_path: research/source_selection.yaml
+  cve_source_manifest_path: research/sources/cve_program_source_manifest.json
+  ordering: sha256_then_opaque_object_id
+
+families:
+  # Recent KEV: 0--30 calendar days before T0.
+  - family_id: EVAL-KEV-A-01
+    scenario_ids: [EVAL-001, EVAL-002]
+    split: evaluation_core
+    stratum: recent_kev_0_30
+    target_kind: cve
+    target_key: CVE-2026-58644
+    product: Microsoft SharePoint Server 2019
+    asset_type: intranet_collaboration_server
+    zone: administration
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 16.0.10417.20152
+    negative_value: 16.0.10417.20153
+    negative_reason: fixed_version
+    private_path_overlay: true
+  - family_id: EVAL-KEV-A-02
+    scenario_ids: [EVAL-003, EVAL-004]
+    split: evaluation_core
+    stratum: recent_kev_0_30
+    target_kind: cve
+    target_key: CVE-2026-48282
+    product: Adobe ColdFusion 2023
+    asset_type: legacy_integration_web_server
+    zone: integration
+    fact_path: /inventory/component_present
+    causal_dimension: component_presence
+    affected_value: true
+    negative_value: false
+    negative_reason: component_absent
+    inventory_facts: {update: '20'}
+    private_path_overlay: false
+  - family_id: EVAL-KEV-A-03
+    scenario_ids: [EVAL-005, EVAL-006]
+    split: evaluation_core
+    stratum: recent_kev_0_30
+    target_kind: cve
+    target_key: CVE-2026-20230
+    product: Cisco Unified Communications Manager
+    asset_type: clinical_telephony_server
+    zone: clinical-services
+    fact_path: /configuration/webdialer_enabled
+    causal_dimension: prerequisite
+    affected_value: true
+    negative_value: false
+    negative_reason: prerequisite_unmet
+    inventory_facts: {release: 15SU4}
+    private_path_overlay: false
+  - family_id: EVAL-KEV-A-04
+    scenario_ids: [EVAL-049, EVAL-050]
+    split: evaluation_extension
+    stratum: recent_kev_0_30
+    target_kind: cve
+    target_key: CVE-2026-20253
+    product: Splunk Enterprise
+    asset_type: security_log_analytics
+    zone: security-operations
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 10.2.3
+    negative_value: 10.2.4
+    negative_reason: fixed_version
+    invariant_facts: {postgresql_sidecar_present: true}
+    private_path_overlay: false
+
+  # Recent KEV: 31--60 calendar days before T0.
+  - family_id: EVAL-KEV-B-01
+    scenario_ids: [EVAL-007, EVAL-008]
+    split: evaluation_core
+    stratum: recent_kev_31_60
+    target_kind: cve
+    target_key: CVE-2026-42271
+    product: BerriAI LiteLLM
+    asset_type: synthetic_clinical_ai_gateway
+    zone: research-ai
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 1.83.6
+    negative_value: 1.83.7
+    negative_reason: fixed_version
+    invariant_facts: {authenticated_low_privilege_users_enabled: true, mcp_stdio_preview_enabled: true}
+    private_path_overlay: false
+  - family_id: EVAL-KEV-B-02
+    scenario_ids: [EVAL-009, EVAL-010]
+    split: evaluation_core
+    stratum: recent_kev_31_60
+    target_kind: cve
+    target_key: CVE-2026-10520
+    product: Ivanti Sentry
+    asset_type: managed_mobile_access_gateway
+    zone: mobile-access
+    fact_path: /inventory/release
+    causal_dimension: version
+    affected_value: R10.7.0
+    negative_value: R10.7.1
+    negative_reason: fixed_version
+    invariant_facts: {management_state: unmanaged, external_endpoint_reachable: true}
+    private_path_overlay: true
+  - family_id: EVAL-KEV-B-03
+    scenario_ids: [EVAL-011, EVAL-012]
+    split: evaluation_core
+    stratum: recent_kev_31_60
+    target_kind: cve
+    target_key: CVE-2026-50751
+    product: Check Point Quantum Security Gateway R82
+    asset_type: remote_access_gateway
+    zone: remote-access
+    fact_path: /configuration/vpn_protocol
+    causal_dimension: prerequisite
+    affected_value: IKEv1
+    negative_value: IKEv2_only
+    negative_reason: prerequisite_unmet
+    private_path_overlay: false
+  - family_id: EVAL-KEV-B-04
+    scenario_ids: [EVAL-051, EVAL-052]
+    split: evaluation_extension
+    stratum: recent_kev_31_60
+    target_kind: cve
+    target_key: CVE-2026-34926
+    product: Trend Micro Apex One On-Premise
+    asset_type: endpoint_security_manager
+    zone: security-operations
+    fact_path: /inventory/build
+    causal_dimension: version
+    affected_value: 14.0.0.17078
+    negative_value: 14.0.0.17079
+    negative_reason: fixed_version
+    private_path_overlay: false
+
+  # Recent KEV: 61--90 calendar days before T0.
+  - family_id: EVAL-KEV-C-01
+    scenario_ids: [EVAL-013, EVAL-014]
+    split: evaluation_core
+    stratum: recent_kev_61_90
+    target_kind: cve
+    target_key: CVE-2026-42897
+    product: Microsoft Exchange Server 2019 CU15
+    asset_type: workforce_messaging_server
+    zone: administration
+    fact_path: /inventory/build
+    causal_dimension: version
+    affected_value: 15.02.1748.045
+    negative_value: 15.02.1748.046
+    negative_reason: fixed_version
+    private_path_overlay: false
+  - family_id: EVAL-KEV-C-02
+    scenario_ids: [EVAL-015, EVAL-016]
+    split: evaluation_core
+    stratum: recent_kev_61_90
+    target_kind: cve
+    target_key: CVE-2024-7399
+    product: Samsung MagicINFO 9 Server
+    asset_type: waiting_room_signage_manager
+    zone: facilities-iot
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: '21.1049'
+    negative_value: '21.1050'
+    negative_reason: fixed_version
+    private_path_overlay: false
+  - family_id: EVAL-KEV-C-03
+    scenario_ids: [EVAL-017, EVAL-018]
+    split: evaluation_core
+    stratum: recent_kev_61_90
+    target_kind: cve
+    target_key: CVE-2024-1708
+    product: ConnectWise ScreenConnect
+    asset_type: biomedical_device_remote_support_server
+    zone: biomedical-support
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 23.9.7
+    negative_value: 23.9.8
+    negative_reason: fixed_version
+    private_path_overlay: true
+  - family_id: EVAL-KEV-C-04
+    scenario_ids: [EVAL-053, EVAL-054]
+    split: evaluation_extension
+    stratum: recent_kev_61_90
+    target_kind: cve
+    target_key: CVE-2023-27351
+    product: PaperCut MF
+    asset_type: clinical_print_manager
+    zone: clinical-services
+    fact_path: /inventory/component_present
+    causal_dimension: component_presence
+    affected_value: true
+    negative_value: false
+    negative_reason: component_absent
+    inventory_facts: {version: 22.0.5}
+    private_path_overlay: false
+
+  # Historical/non-recent comparison CVEs.
+  - family_id: EVAL-CVE-01
+    scenario_ids: [EVAL-019, EVAL-020]
+    split: evaluation_core
+    stratum: other_cve
+    target_kind: cve
+    target_key: CVE-2021-44228
+    product: Apache Log4j2 log4j-core
+    asset_type: integration_logging_library
+    zone: integration
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 2.14.1
+    negative_value: 2.15.0
+    negative_reason: fixed_version
+    private_path_overlay: false
+  - family_id: EVAL-CVE-02
+    scenario_ids: [EVAL-021, EVAL-022]
+    split: evaluation_core
+    stratum: other_cve
+    target_kind: cve
+    target_key: CVE-2021-41773
+    product: Apache HTTP Server
+    asset_type: results_portal_web_server
+    zone: patient-services
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 2.4.49
+    negative_value: 2.4.48
+    negative_reason: fixed_version
+    private_path_overlay: false
+  - family_id: EVAL-CVE-03
+    scenario_ids: [EVAL-023, EVAL-024]
+    split: evaluation_core
+    stratum: other_cve
+    target_kind: cve
+    target_key: CVE-2024-3094
+    product: XZ Utils
+    asset_type: linux_appliance_base_component
+    zone: integration
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 5.6.1
+    negative_value: 5.4.6
+    negative_reason: fixed_version
+    private_path_overlay: false
+  - family_id: EVAL-CVE-04
+    scenario_ids: [EVAL-025, EVAL-026]
+    split: evaluation_core
+    stratum: other_cve
+    target_kind: cve
+    target_key: CVE-2023-22515
+    product: Atlassian Confluence Data Center
+    asset_type: internal_runbook_server
+    zone: administration
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 8.5.1
+    negative_value: 8.5.2
+    negative_reason: fixed_version
+    private_path_overlay: false
+  - family_id: EVAL-CVE-05
+    scenario_ids: [EVAL-027, EVAL-028]
+    split: evaluation_core
+    stratum: other_cve
+    target_kind: cve
+    target_key: CVE-2022-1388
+    product: F5 BIG-IP
+    asset_type: application_delivery_controller
+    zone: perimeter
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 16.1.2.1
+    negative_value: 16.1.2.2
+    negative_reason: fixed_version
+    private_path_overlay: false
+  - family_id: EVAL-CVE-06
+    scenario_ids: [EVAL-055, EVAL-056]
+    split: evaluation_extension
+    stratum: other_cve
+    target_kind: cve
+    target_key: CVE-2024-3400
+    product: Palo Alto Networks PAN-OS
+    asset_type: clinical_network_perimeter_gateway
+    zone: perimeter
+    fact_path: /inventory/version
+    causal_dimension: version
+    affected_value: 10.2.8-h2
+    negative_value: 10.2.8-h3
+    negative_reason: fixed_version
+    invariant_facts: {globalprotect_gateway_enabled: true, device_telemetry_enabled: true}
+    private_path_overlay: true
+
+  # Study-authored, non-executable configuration-policy pairs.
+  - family_id: EVAL-MIS-01
+    scenario_ids: [EVAL-029, EVAL-030]
+    split: evaluation_core
+    stratum: synthetic_misconfiguration
+    target_kind: synthetic_misconfiguration
+    target_key: MCFG.FHIR.AUTH_REQUIRED
+    product: HAPI FHIR JPA
+    asset_type: clinical_fhir_api
+    zone: clinical-data
+    fact_path: /configuration/authentication_mode
+    causal_dimension: configuration
+    affected_value: none
+    negative_value: oauth2
+    negative_reason: configuration_compliant
+    private_path_overlay: false
+  - family_id: EVAL-MIS-02
+    scenario_ids: [EVAL-031, EVAL-032]
+    split: evaluation_core
+    stratum: synthetic_misconfiguration
+    target_kind: synthetic_misconfiguration
+    target_key: MCFG.DICOMWEB.WRITE_AUTH_REQUIRED
+    product: Orthanc DICOMweb
+    asset_type: pacs_archive
+    zone: imaging
+    fact_path: /configuration/stow_rs_auth_required
+    causal_dimension: configuration
+    affected_value: false
+    negative_value: true
+    negative_reason: configuration_compliant
+    private_path_overlay: true
+  - family_id: EVAL-MIS-03
+    scenario_ids: [EVAL-033, EVAL-034]
+    split: evaluation_core
+    stratum: synthetic_misconfiguration
+    target_kind: synthetic_misconfiguration
+    target_key: MCFG.OBJECTSTORE.PUBLIC_ACCESS_DENY
+    product: MinIO
+    asset_type: synthetic_research_object_store
+    zone: research
+    fact_path: /configuration/anonymous_get
+    causal_dimension: configuration
+    affected_value: true
+    negative_value: false
+    negative_reason: configuration_compliant
+    private_path_overlay: false
+  - family_id: EVAL-MIS-04
+    scenario_ids: [EVAL-035, EVAL-036]
+    split: evaluation_core
+    stratum: synthetic_misconfiguration
+    target_kind: synthetic_misconfiguration
+    target_key: MCFG.OIDC.REDIRECT_URI_EXACT
+    product: Keycloak
+    asset_type: identity_provider
+    zone: identity
+    fact_path: /configuration/redirect_match
+    causal_dimension: configuration
+    affected_value: wildcard
+    negative_value: exact
+    negative_reason: configuration_compliant
+    private_path_overlay: true
+  - family_id: EVAL-MIS-05
+    scenario_ids: [EVAL-037, EVAL-038]
+    split: evaluation_core
+    stratum: synthetic_misconfiguration
+    target_kind: synthetic_misconfiguration
+    target_key: MCFG.AUDIT.REQUIRED_EVENTS_COMPLETE
+    product: Synthetic Audit Pipeline
+    asset_type: audit_log_pipeline
+    zone: security-operations
+    fact_path: /configuration/required_event_coverage
+    causal_dimension: configuration
+    affected_value: incomplete
+    negative_value: complete
+    negative_reason: configuration_compliant
+    private_path_overlay: false
+  - family_id: EVAL-MIS-06
+    scenario_ids: [EVAL-039, EVAL-040]
+    split: evaluation_core
+    stratum: synthetic_misconfiguration
+    target_kind: synthetic_misconfiguration
+    target_key: MCFG.SUPPLYCHAIN.DIGEST_PINNED
+    product: Synthetic Container Deployment
+    asset_type: clinical_application_deployment
+    zone: clinical-services
+    fact_path: /configuration/image_reference_policy
+    causal_dimension: configuration
+    affected_value: mutable_tag
+    negative_value: immutable_digest
+    negative_reason: configuration_compliant
+    private_path_overlay: true
+  - family_id: EVAL-MIS-07
+    scenario_ids: [EVAL-057, EVAL-058]
+    split: evaluation_extension
+    stratum: synthetic_misconfiguration
+    target_kind: synthetic_misconfiguration
+    target_key: MCFG.NETWORK.CROSS_ZONE_DENY
+    product: Synthetic Network Policy
+    asset_type: network_policy
+    zone: shared-services
+    fact_path: /topology/research_to_clinical
+    causal_dimension: path_edge
+    affected_value: allow
+    negative_value: deny
+    negative_reason: required_path_edge_absent
+    private_path_overlay: true
+
+  # Clean pairs contain no positive target. The one changed value is explicitly benign.
+  - family_id: EVAL-CLN-01
+    scenario_ids: [EVAL-041, EVAL-042]
+    split: evaluation_core
+    stratum: clean_control
+    target_kind: clean
+    target_key: CLEAN.FHIR
+    product: HAPI FHIR JPA
+    asset_type: clinical_fhir_api
+    zone: clinical-data
+    fact_path: /inventory/patch_revision
+    causal_dimension: version
+    affected_value: fixed-a
+    negative_value: fixed-b
+    negative_reason: clean_candidate_absent
+    invariant_facts: {authentication_mode: oauth2, anonymous_read: false}
+    private_path_overlay: false
+  - family_id: EVAL-CLN-02
+    scenario_ids: [EVAL-043, EVAL-044]
+    split: evaluation_core
+    stratum: clean_control
+    target_kind: clean
+    target_key: CLEAN.PACS
+    product: Orthanc
+    asset_type: pacs_archive
+    zone: imaging
+    fact_path: /inventory/patch_revision
+    causal_dimension: version
+    affected_value: fixed-a
+    negative_value: fixed-b
+    negative_reason: clean_candidate_absent
+    invariant_facts: {stow_rs_auth_required: true, cross_zone_default: deny}
+    private_path_overlay: false
+  - family_id: EVAL-CLN-03
+    scenario_ids: [EVAL-045, EVAL-046]
+    split: evaluation_core
+    stratum: clean_control
+    target_kind: clean
+    target_key: CLEAN.IDENTITY
+    product: Keycloak
+    asset_type: identity_provider
+    zone: identity
+    fact_path: /inventory/patch_revision
+    causal_dimension: version
+    affected_value: fixed-a
+    negative_value: fixed-b
+    negative_reason: clean_candidate_absent
+    invariant_facts: {redirect_match: exact, public_client: false}
+    private_path_overlay: false
+  - family_id: EVAL-CLN-04
+    scenario_ids: [EVAL-047, EVAL-048]
+    split: evaluation_core
+    stratum: clean_control
+    target_kind: clean
+    target_key: CLEAN.RESEARCH_STORE
+    product: MinIO
+    asset_type: synthetic_research_object_store
+    zone: research
+    fact_path: /inventory/patch_revision
+    causal_dimension: version
+    affected_value: fixed-a
+    negative_value: fixed-b
+    negative_reason: clean_candidate_absent
+    invariant_facts: {anonymous_get: false, least_privilege: true}
+    private_path_overlay: false
+  - family_id: EVAL-CLN-05
+    scenario_ids: [EVAL-059, EVAL-060]
+    split: evaluation_extension
+    stratum: clean_control
+    target_kind: clean
+    target_key: CLEAN.AUDIT_SUPPLYCHAIN
+    product: Synthetic Audit and Deployment Controls
+    asset_type: security_control_bundle
+    zone: security-operations
+    fact_path: /inventory/patch_revision
+    causal_dimension: version
+    affected_value: fixed-a
+    negative_value: fixed-b
+    negative_reason: clean_candidate_absent
+    invariant_facts: {required_event_coverage: complete, image_reference_policy: immutable_digest}
+    private_path_overlay: false

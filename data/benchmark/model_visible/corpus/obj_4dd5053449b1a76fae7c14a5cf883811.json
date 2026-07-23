@@ -1,0 +1,1 @@
+{"control_id":"MCFG.DICOMWEB.WRITE_AUTH_REQUIRED","evidence_fields":["stow_rs_auth_required"],"rule":"stow_rs_auth_required must be true","subject":"PACS DICOMweb STOW-RS endpoint","title":"DICOMweb write authorization"}

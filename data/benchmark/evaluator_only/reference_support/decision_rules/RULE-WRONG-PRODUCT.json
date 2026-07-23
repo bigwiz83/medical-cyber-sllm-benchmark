@@ -1,0 +1,1 @@
+{"fact_id":"FACT-WRONG-PRODUCT","post_output_mutable":false,"rows":[{"left":"observed_product","negative_reason":"wrong_product","operator":"not_equal","output":"not_affected","right":"expected_product"},{"otherwise":true,"output":"insufficient_evidence"}],"rule_id":"RULE-WRONG-PRODUCT","schema_version":"reference-decision-table-1.0.0"}

@@ -1,0 +1,1 @@
+{"topology":{"default_cross_zone_policy":"deny","edges":[{"from":"asset-01","protocol":"event_forwarding","to":"audit-01"}],"nodes":["asset-01","identity-01","audit-01"],"research_to_clinical":"deny"}}

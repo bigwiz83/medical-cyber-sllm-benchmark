@@ -1,0 +1,11 @@
+order,condition_id,condition,backbone,precision,recall,mean_run_f1,complete,failed,refused
+1,qwen_single_rag,Qwen single-RAG,Qwen 3.5 27B,0.8125,0.52,0.6341463414634146,290,10,0
+2,qwen_autonomous_team,Qwen autonomous team,Qwen 3.5 27B,0.8571428571428571,0.48,0.6153846153846154,285,15,0
+3,qwen_fixed_team,Qwen fixed team,Qwen 3.5 27B,0.7222222222222222,0.52,0.6046511627906976,285,15,0
+4,qwen_without_evidence_check,Qwen without evidence checking,Qwen 3.5 27B,0.7222222222222222,0.52,0.6046511627906976,285,15,0
+5,qwen_without_context_role,Qwen without clinical-context agent,Qwen 3.5 27B,0.7222222222222222,0.52,0.6046511627906976,285,15,0
+6,qwen_without_retrieval,Qwen without retrieval,Qwen 3.5 27B,,0.0,0.0,260,40,0
+7,gemma_single_rag,Gemma single-RAG,Gemma 3 27B,0.5,0.16,0.24242424242424243,235,65,0
+8,gemma_fixed_team,Gemma fixed team,Gemma 3 27B,1.0,0.12,0.21428571428571427,250,50,0
+9,gpt_oss_single_rag,gpt-oss single-RAG,gpt-oss 20B,0.10869565217391304,0.08,0.09219638242894057,300,0,0
+10,gpt_oss_fixed_team,gpt-oss fixed team,gpt-oss 20B,0.2857142857142857,0.24,0.2608695652173913,284,11,5

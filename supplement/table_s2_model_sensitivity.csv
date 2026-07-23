@@ -1,0 +1,4 @@
+comparison,conditional_effect,conditional_estimate,conditional_ci_lower,conditional_ci_upper,conditional_p,standardized_probability_difference,standardized_ci_lower,standardized_ci_upper,status
+Qwen fixed team − single-RAG,Odds ratio,1.0007292520670472,0.2617831755094838,3.8255286421429755,0.9991498626008978,0.00010613342258103398,-0.11001802293975951,0.1045897180033313,Exploratory sensitivity analysis
+Qwen autonomous team − fixed team,Odds ratio,6.483710058737737,0.891980528359916,47.12938768189599,0.06474491912984068,-0.05913261336073383,-0.17137546210029594,0.09686287081980287,Exploratory sensitivity analysis
+Qwen autonomous team − single-RAG,Odds ratio,10.550622022094824,1.0120845605750992,109.98648669223758,0.048837530653791004,-0.10922600886734768,-0.24997650480636943,0.09349923357018708,Exploratory sensitivity analysis

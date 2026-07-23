@@ -1,0 +1,1 @@
+{"control_id":"MCFG.OIDC.REDIRECT_URI_EXACT","evidence_fields":["redirect_match"],"rule":"redirect_match must be exact","subject":"identity-provider client configuration","title":"OIDC redirect matching"}

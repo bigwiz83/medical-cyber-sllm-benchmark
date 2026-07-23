@@ -1,0 +1,90 @@
+{
+  "$defs": {
+    "FocusDimension": {
+      "enum": [
+        "asset_inventory",
+        "cve_applicability",
+        "evidence_grounding",
+        "exposure_prerequisites",
+        "configuration_controls",
+        "attack_path_consistency",
+        "clinical_workflow_context",
+        "false_positive_control"
+      ],
+      "title": "FocusDimension",
+      "type": "string"
+    },
+    "PlannerDraftRole": {
+      "additionalProperties": false,
+      "description": "Exact role shape authored by the model; it deliberately has no role ID.",
+      "properties": {
+        "depends_on_ordinals": {
+          "default": [],
+          "items": {"type": "integer"},
+          "maxItems": 2,
+          "title": "Depends On Ordinals",
+          "type": "array"
+        },
+        "focus_dimensions": {
+          "items": {"$ref": "#/$defs/FocusDimension"},
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Focus Dimensions",
+          "type": "array"
+        },
+        "objective": {
+          "maxLength": 512,
+          "minLength": 3,
+          "title": "Objective",
+          "type": "string"
+        },
+        "ordinal": {
+          "maximum": 3,
+          "minimum": 1,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "title": {
+          "maxLength": 512,
+          "minLength": 3,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": ["ordinal", "title", "objective", "focus_dimensions"],
+      "title": "PlannerDraftRole",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Strict planner response before deterministic host canonicalization.",
+  "properties": {
+    "roles": {
+      "maxItems": 3,
+      "minItems": 3,
+      "prefixItems": [
+        {"$ref": "#/$defs/PlannerDraftRole"},
+        {"$ref": "#/$defs/PlannerDraftRole"},
+        {"$ref": "#/$defs/PlannerDraftRole"}
+      ],
+      "title": "Roles",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "qwen-autonomous-planner-draft-2.0.0",
+      "default": "qwen-autonomous-planner-draft-2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {"const": "ok", "default": "ok", "title": "Status", "type": "string"},
+    "synthesis_strategy": {
+      "maxLength": 512,
+      "minLength": 3,
+      "title": "Synthesis Strategy",
+      "type": "string"
+    }
+  },
+  "required": ["roles", "synthesis_strategy"],
+  "title": "PlannerDraft",
+  "type": "object"
+}

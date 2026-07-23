@@ -1,0 +1,1 @@
+{"control_id":"MCFG.OBJECTSTORE.PUBLIC_ACCESS_DENY","evidence_fields":["anonymous_get"],"rule":"anonymous_get must be false","subject":"synthetic research object store","title":"Object-store anonymous access"}

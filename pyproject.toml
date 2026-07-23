@@ -1,0 +1,24 @@
+[project]
+name = "medcyber-benchmark"
+version = "1.0.0"
+description = "Reproducible analysis package for an evidence-verified synthetic hospital-network cybersecurity benchmark"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "numpy==2.5.1",
+  "pandas==3.0.3",
+  "patsy==1.0.2",
+  "pydantic==2.13.4",
+  "scipy==1.18.0",
+  "statsmodels==0.14.6",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest==9.1.1",
+]
+
+[tool.pytest.ini_options]
+addopts = "-q -p no:cacheprovider"
+pythonpath = ["src"]
+testpaths = ["tests"]

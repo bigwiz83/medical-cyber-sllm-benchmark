@@ -1,0 +1,1 @@
+{"control_id":"MCFG.SUPPLYCHAIN.DIGEST_PINNED","evidence_fields":["image_reference_policy"],"rule":"image_reference_policy must be immutable_digest","subject":"clinical application deployment","title":"Container image immutability"}

@@ -1,0 +1,19 @@
+condition_id,condition,stratum,tp,fp,fn,precision,recall,f1,cells
+qwen_single_rag,Qwen single-RAG,"Recent KEV, 0–30 days",15,0,5,1.0,0.75,0.8571428571428571,40
+qwen_single_rag,Qwen single-RAG,"Recent KEV, 31–60 days",15,5,5,0.75,0.75,0.75,40
+qwen_single_rag,Qwen single-RAG,"Recent KEV, 61–90 days",15,0,5,1.0,0.75,0.8571428571428571,40
+qwen_single_rag,Qwen single-RAG,Other CVE,20,10,10,0.6666666666666666,0.6666666666666666,0.6666666666666666,60
+qwen_single_rag,Qwen single-RAG,Synthetic misconfiguration,0,0,35,,0.0,0.0,70
+qwen_single_rag,Qwen single-RAG,Clean control,0,0,0,,,,50
+qwen_fixed_team,Qwen fixed team,"Recent KEV, 0–30 days",20,5,0,0.8,1.0,0.8888888888888888,40
+qwen_fixed_team,Qwen fixed team,"Recent KEV, 31–60 days",10,5,10,0.6666666666666666,0.5,0.5714285714285714,40
+qwen_fixed_team,Qwen fixed team,"Recent KEV, 61–90 days",15,0,5,1.0,0.75,0.8571428571428571,40
+qwen_fixed_team,Qwen fixed team,Other CVE,20,15,10,0.5714285714285714,0.6666666666666666,0.6153846153846154,60
+qwen_fixed_team,Qwen fixed team,Synthetic misconfiguration,0,0,35,,0.0,0.0,70
+qwen_fixed_team,Qwen fixed team,Clean control,0,0,0,,,,50
+qwen_autonomous_team,Qwen autonomous team,"Recent KEV, 0–30 days",10,0,10,1.0,0.5,0.6666666666666666,40
+qwen_autonomous_team,Qwen autonomous team,"Recent KEV, 31–60 days",15,5,5,0.75,0.75,0.75,40
+qwen_autonomous_team,Qwen autonomous team,"Recent KEV, 61–90 days",10,0,10,1.0,0.5,0.6666666666666666,40
+qwen_autonomous_team,Qwen autonomous team,Other CVE,25,5,5,0.8333333333333334,0.8333333333333334,0.8333333333333334,60
+qwen_autonomous_team,Qwen autonomous team,Synthetic misconfiguration,0,0,35,,0.0,0.0,70
+qwen_autonomous_team,Qwen autonomous team,Clean control,0,0,0,,,,50

@@ -1,0 +1,11 @@
+condition_id,condition,backbone,complete,failed,refused,tp,fp,fn,precision,recall,mean_run_f1,pooled_count_f1
+qwen_single_rag,Qwen single-RAG,Qwen 3.5 27B,290,10,0,65,15,60,0.8125,0.52,0.6341463414634146,0.6341463414634146
+qwen_autonomous_team,Qwen autonomous team,Qwen 3.5 27B,285,15,0,60,10,65,0.8571428571428571,0.48,0.6153846153846154,0.6153846153846154
+qwen_fixed_team,Qwen fixed team,Qwen 3.5 27B,285,15,0,65,25,60,0.7222222222222222,0.52,0.6046511627906976,0.6046511627906976
+qwen_without_evidence_check,Qwen without evidence checking,Qwen 3.5 27B,285,15,0,65,25,60,0.7222222222222222,0.52,0.6046511627906976,0.6046511627906976
+qwen_without_context_role,Qwen without clinical-context agent,Qwen 3.5 27B,285,15,0,65,25,60,0.7222222222222222,0.52,0.6046511627906976,0.6046511627906976
+qwen_without_retrieval,Qwen without retrieval,Qwen 3.5 27B,260,40,0,0,0,125,,0.0,0.0,0.0
+gemma_single_rag,Gemma single-RAG,Gemma 3 27B,235,65,0,20,20,105,0.5,0.16,0.24242424242424243,0.24242424242424243
+gemma_fixed_team,Gemma fixed team,Gemma 3 27B,250,50,0,15,0,110,1.0,0.12,0.21428571428571427,0.21428571428571427
+gpt_oss_single_rag,gpt-oss single-RAG,gpt-oss 20B,300,0,0,10,82,115,0.10869565217391304,0.08,0.09219638242894057,0.09216589861751152
+gpt_oss_fixed_team,gpt-oss fixed team,gpt-oss 20B,284,11,5,30,75,95,0.2857142857142857,0.24,0.2608695652173913,0.2608695652173913
