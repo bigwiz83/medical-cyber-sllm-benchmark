@@ -5,18 +5,18 @@
   "files": [
     {
       "path": "masters/figure1.svg",
-      "size_bytes": 730010,
-      "sha256": "7b91e89c113e147e5d844dcad380150053514603178ad619907268f725b6a9e5"
+      "size_bytes": 13556,
+      "sha256": "fd2e9509b47feb2dc5a418012a970ab6d315af9eb1addd7a05fe09f8df24f1b5"
     },
     {
       "path": "masters/figure2.svg",
-      "size_bytes": 17381,
-      "sha256": "dddb5c267bb1a32ac586d4355095a5cb96d0e2e2af73da67e7ea7691c8b41af9"
+      "size_bytes": 18477,
+      "sha256": "138081e993ff37315ce09ea804c12ba1fb32caf2f6cdb8529486a4a4be164f38"
     },
     {
       "path": "masters/figure3.svg",
-      "size_bytes": 16055,
-      "sha256": "d102c0a770ba7b9ac81a00b5140bd3533bbf89df5174e38721f494f197ca26e3"
+      "size_bytes": 18824,
+      "sha256": "a22e55c0ad45f853c1d7585a5d10c3eaac50c0215f2051dd332d1dece7e8cc79"
     },
     {
       "path": "source_data/figure1a_scenario_composition.csv",
@@ -55,38 +55,38 @@
     },
     {
       "path": "submission/figure1.pdf",
-      "size_bytes": 712874,
-      "sha256": "af59fd4376cb2c4c3d21f3a75b7f4cd466726e9cb57d002ec9826b69d479ff61"
+      "size_bytes": 462166,
+      "sha256": "1c9ec46628a00b2cffc8f182a47b747f0b2878cd37906b49c2e81b0eb1ea2e4a"
     },
     {
       "path": "submission/figure1_600dpi.png",
-      "size_bytes": 574963,
-      "sha256": "7261339f99bb03e311f82b01750672e704aff2cf1cbede09ce6f29f79319d951"
+      "size_bytes": 379343,
+      "sha256": "2ec66833a4fbd487e3b04078e78cfe60de0baeb7be968246b0b32931a64c1ef5"
     },
     {
       "path": "submission/figure2.pdf",
-      "size_bytes": 625268,
-      "sha256": "eff3f4bde901481d46b0fd98ab8b3542e9884620a2eed63016a95e1eca11549b"
+      "size_bytes": 464432,
+      "sha256": "2909734259da18f841340caff6fb5a65e0b55bcc315eec991404e42ab7cb1e7f"
     },
     {
       "path": "submission/figure2_600dpi.png",
-      "size_bytes": 503405,
-      "sha256": "07f8f3846ecde8b10d9653e495e42a784d498d00b7321958b98183820bc25a79"
+      "size_bytes": 361044,
+      "sha256": "4e549f1900f82af481bc06fa491d354b39bcab944c26e0b88c1e78c1770e45eb"
     },
     {
       "path": "submission/figure3.pdf",
-      "size_bytes": 685919,
-      "sha256": "896800cca499373f614b70e4173df701e860f7b8d04f1f2fad480915b4aef759"
+      "size_bytes": 554499,
+      "sha256": "f6cd3a20c61356ec657b62071395d8b7f0bd41f21fc2184d06b6ce0b7d784164"
     },
     {
       "path": "submission/figure3_600dpi.png",
-      "size_bytes": 555726,
-      "sha256": "5a50ee230e0569fdd6e037f58bc821567fdd789cc0d6351863f47244a4ce07ab"
+      "size_bytes": 436755,
+      "sha256": "b5655b054076b5916c46d9f88214cbfd2d5cfd85939450b4fceb7d6eb702e3d1"
     },
     {
       "path": "scripts/build_vector_art.mjs",
-      "size_bytes": 16071,
-      "sha256": "1a95b3579cb38ceb8c596a10eb50b389fed5f60c4b81a5bc1d7eb45f6c23d95f"
+      "size_bytes": 23070,
+      "sha256": "e851024a69dbd1578f8f3928eb200572a961c6c49d8f469027ce911966b4bd68"
     }
   ]
 }

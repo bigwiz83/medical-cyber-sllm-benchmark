@@ -7,5 +7,5 @@ authors:
     given-names: "Bum-Sup"
     orcid: "https://orcid.org/0000-0002-7064-9855"
 repository-code: "https://github.com/bigwiz83/medical-cyber-sllm-benchmark"
-version: "1.0.0"
+version: "1.0.1"
 date-released: 2026-07-23

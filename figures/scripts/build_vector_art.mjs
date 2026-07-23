@@ -3,20 +3,29 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const masterDir = path.resolve(here, "..", "masters");
+const figureRoot = path.basename(here) === "scripts" ? path.dirname(here) : here;
+const masterDir = path.join(figureRoot, "masters");
 fs.mkdirSync(masterDir, { recursive: true });
 
+const sourceCandidates = [
+  path.join(figureRoot, "source_data"),
+  path.join(figureRoot, "..", "paper_ready_v3", "generated", "figures", "source_data"),
+];
+const sourceDir = sourceCandidates.find((candidate) => fs.existsSync(candidate));
+if (!sourceDir) throw new Error(`Figure source data not found: ${sourceCandidates.join(", ")}`);
+
 const C = {
-  ink: "#17212B",
-  muted: "#5B6672",
-  line: "#D7E0E6",
-  pale: "#F3F6F8",
+  ink: "#111111",
+  muted: "#555555",
+  rule: "#B7B7B7",
+  grid: "#DDDDDD",
+  pale: "#F3F3F3",
   teal: "#007C91",
-  blue: "#2F6B9A",
-  orange: "#E69F00",
-  red: "#B2332E",
-  gray: "#9AA4AD",
-  lightGray: "#DBE0E5",
+  tealLight: "#DCECEF",
+  blueGray: "#627D8C",
+  rust: "#A34A2A",
+  gray: "#9B9B9B",
+  darkGray: "#5F5F5F",
   white: "#FFFFFF",
 };
 
@@ -27,290 +36,426 @@ const esc = (value) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
-const svgStart = (width, height, title) => `<?xml version="1.0" encoding="UTF-8"?>
+function parseCsv(raw) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
+  for (let index = 0; index < raw.length; index += 1) {
+    const char = raw[index];
+    if (char === '"') {
+      if (quoted && raw[index + 1] === '"') {
+        cell += '"';
+        index += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (char === "," && !quoted) {
+      row.push(cell);
+      cell = "";
+    } else if ((char === "\n" || char === "\r") && !quoted) {
+      if (char === "\r" && raw[index + 1] === "\n") index += 1;
+      row.push(cell);
+      if (row.some((value) => value !== "")) rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += char;
+    }
+  }
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+  const headers = rows.shift();
+  return rows.map((values) => Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""])));
+}
+
+const csv = (name) => parseCsv(fs.readFileSync(path.join(sourceDir, name), "utf8"));
+const n = (value) => Number(value);
+const score = (value) => n(value).toFixed(2);
+const pValue = (value) => {
+  if (value === "" || value === undefined || value === null) return "—";
+  const number = n(value);
+  return number < 0.001 ? "<0.001" : number.toFixed(3);
+};
+const minus = (value) => String(value).replaceAll("-", "−");
+
+const svgStart = (width, height, title, description) => `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title desc">
 <title id="title">${esc(title)}</title>
-<desc id="desc">Publication figure for the synthetic hospital cybersecurity benchmark.</desc>
+<desc id="desc">${esc(description)}</desc>
 <rect width="${width}" height="${height}" fill="white"/>
 <style>
 text { font-family: Arial, Helvetica, sans-serif; fill: ${C.ink}; }
-.muted { fill: ${C.muted}; }
-.bold { font-weight: 700; }
-.semibold { font-weight: 600; }
-.panel { fill: white; stroke: ${C.line}; stroke-width: 1; }
+.label { font-size: 12px; }
+.small { font-size: 10.5px; }
 </style>`;
 
-const text = (x, y, value, size = 16, options = {}) => {
-  const {
-    weight = 400,
-    fill = C.ink,
-    anchor = "start",
-    rotate,
-    className = "",
-  } = options;
+const text = (x, y, value, size = 14, options = {}) => {
+  const { weight = 400, fill = C.ink, anchor = "start", rotate, italic = false } = options;
   const transform = rotate === undefined ? "" : ` transform="rotate(${rotate} ${x} ${y})"`;
-  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}" class="${className}"${transform}>${esc(value)}</text>`;
+  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}" font-style="${italic ? "italic" : "normal"}"${transform}>${esc(value)}</text>`;
 };
 
-const multiline = (x, y, lines, size = 13, options = {}) => {
-  const { weight = 400, fill = C.ink, anchor = "start", lineHeight = 1.25 } = options;
-  const tspans = lines
-    .map((line, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : size * lineHeight}">${esc(line)}</tspan>`)
-    .join("");
-  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}">${tspans}</text>`;
+const multiline = (x, y, lines, size = 12, options = {}) => {
+  const { weight = 400, fill = C.ink, anchor = "start", lineHeight = 1.2 } = options;
+  const spans = lines.map((value, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : size * lineHeight}">${esc(value)}</tspan>`).join("");
+  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}">${spans}</text>`;
 };
 
-const rect = (x, y, width, height, fill, options = {}) => {
-  const { stroke = "none", strokeWidth = 0, radius = 0 } = options;
-  return `<rect x="${x}" y="${y}" width="${width}" height="${height}" rx="${radius}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
-};
+const line = (x1, y1, x2, y2, stroke = C.rule, width = 1, dash = "") =>
+  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${width}"${dash ? ` stroke-dasharray="${dash}"` : ""}/>`;
+const rect = (x, y, width, height, fill = C.white, stroke = "none", strokeWidth = 0) =>
+  `<rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
+const circle = (cx, cy, radius, fill, stroke = C.white, strokeWidth = 1.2) =>
+  `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
 
-const line = (x1, y1, x2, y2, stroke = C.line, width = 1) =>
-  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${width}"/>`;
+function panelHeader(parts, x, width, letter, titleValue) {
+  parts.push(text(x, 42, letter, 24, { weight: 700 }));
+  parts.push(text(x + 38, 40, titleValue, 17, { weight: 700 }));
+  parts.push(line(x, 57, x + width, 57, C.ink, 1.1));
+}
 
-const circle = (cx, cy, radius, fill, options = {}) => {
-  const { stroke = C.white, strokeWidth = 1.5 } = options;
-  return `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
-};
+function modelColor(condition) {
+  if (condition.startsWith("Qwen")) return C.teal;
+  if (condition.startsWith("Gemma")) return C.blueGray;
+  return C.rust;
+}
+
+function figure1() {
+  const composition = csv("figure1a_scenario_composition.csv");
+  const conditions = csv("figure1b_conditions.csv");
+  const s = [svgStart(1200, 690, "Integrated benchmark design and analysis workflow", "Benchmark population, evaluated model configurations, and evidence-verified scoring workflow.")];
+  panelHeader(s, 32, 350, "A", "Benchmark population");
+  panelHeader(s, 418, 350, "B", "Model configurations");
+  panelHeader(s, 804, 364, "C", "Evidence-verified scoring");
+  s.push(line(400, 24, 400, 660, C.grid, 1));
+  s.push(line(786, 24, 786, 660, C.grid, 1));
+
+  const stats = [["60", "scenarios"], ["30", "families"], ["5", "repetitions"], ["3,000", "cells"]];
+  stats.forEach(([value, label], index) => {
+    const x = 42 + (index % 2) * 168;
+    const y = 102 + Math.floor(index / 2) * 72;
+    s.push(text(x, y, value, 26, { weight: 700, fill: index === 3 ? C.teal : C.ink }));
+    s.push(text(x, y + 22, label, 11.5, { fill: C.muted }));
+  });
+  s.push(text(42, 246, "Scenario composition", 12.5, { weight: 700 }));
+  s.push(line(42, 256, 368, 256, C.grid, 0.8));
+  const maxScenarios = Math.max(...composition.map((row) => n(row.scenarios)));
+  composition.forEach((row, index) => {
+    const y = 292 + index * 54;
+    const label = row.stratum.replace("Recent KEV, ", "Recent KEV ").replace("Synthetic misconfiguration", "Synthetic misconfiguration");
+    const width = 88 * n(row.scenarios) / maxScenarios;
+    const fill = row.stratum === "Clean control" ? C.gray : row.stratum === "Synthetic misconfiguration" ? C.darkGray : C.teal;
+    s.push(text(42, y, label, 11.5));
+    s.push(rect(250, y - 11, width, 11, fill));
+    s.push(text(365, y, row.scenarios, 11.5, { weight: 700, anchor: "end" }));
+  });
+  s.push(line(42, 622, 368, 622, C.grid, 0.8));
+  s.push(text(42, 646, "25 positive · 25 paired negative · 10 clean", 11, { fill: C.muted }));
+
+  const grouped = new Map();
+  for (const row of conditions) {
+    if (!grouped.has(row.backbone)) grouped.set(row.backbone, []);
+    grouped.get(row.backbone).push(row);
+  }
+  s.push(text(428, 89, "Backbone", 10.5, { weight: 700, fill: C.muted }));
+  [["Single-RAG", 564], ["Fixed team", 628], ["Autonomous", 690], ["Ablation", 748]].forEach(([label, x]) => {
+    s.push(multiline(x, 83, label === "Fixed team" ? ["Fixed", "team"] : [label], 10, { weight: 700, fill: C.muted, anchor: "middle" }));
+  });
+  s.push(line(428, 108, 758, 108, C.rule, 0.9));
+  const rows = [
+    ["Qwen 3.5 27B", 6],
+    ["Gemma 3 27B", 2],
+    ["gpt-oss 20B", 2],
+  ];
+  rows.forEach(([backbone, count], index) => {
+    const y = 154 + index * 82;
+    const values = grouped.get(backbone) ?? [];
+    const hasSingle = values.some((row) => row.architecture.startsWith("Single-agent"));
+    const hasFixed = values.some((row) => row.architecture === "Fixed specialist team");
+    const hasAutonomous = values.some((row) => row.architecture.startsWith("Model-planned"));
+    const ablations = values.filter((row) => row.architecture.includes("ablation")).length;
+    s.push(text(428, y, backbone, 13, { weight: 700 }));
+    s.push(text(428, y + 20, `${count} configurations`, 10.5, { fill: C.muted }));
+    [[564, hasSingle], [628, hasFixed], [690, hasAutonomous]].forEach(([x, present]) => {
+      s.push(present ? circle(x, y - 4, 5.5, C.teal, C.teal, 1) : text(x, y, "—", 12, { fill: C.gray, anchor: "middle" }));
+    });
+    s.push(ablations ? text(748, y, String(ablations), 12, { weight: 700, fill: C.teal, anchor: "middle" }) : text(748, y, "—", 12, { fill: C.gray, anchor: "middle" }));
+    s.push(line(428, y + 37, 758, y + 37, C.grid, 0.8));
+  });
+  s.push(text(428, 418, "Common controls", 12.5, { weight: 700 }));
+  const controls = [
+    ["Temperature", "0"], ["Seed", "paired"], ["Concurrency", "1"],
+    ["Runtime egress", "0 bytes"], ["Model commands", "disabled"],
+  ];
+  controls.forEach(([label, value], index) => {
+    const y = 451 + index * 36;
+    s.push(text(428, y, label, 11.5, { fill: C.muted }));
+    s.push(text(758, y, value, 11.5, { weight: 700, anchor: "end" }));
+    s.push(line(428, y + 10, 758, y + 10, C.grid, 0.7));
+  });
+
+  const workflow = [
+    ["Structured finding", "target · candidate · evidence"],
+    ["Asset applicability", "product · version · configuration"],
+    ["Source support", "frozen advisory and retrieval record"],
+    ["Execution validation", "rule checks in the synthetic range"],
+  ];
+  workflow.forEach(([label, detail], index) => {
+    const y = 82 + index * 104;
+    s.push(rect(824, y, 324, 60, C.white, C.rule, 1));
+    s.push(rect(824, y, 5, 60, index === 3 ? C.darkGray : C.teal));
+    s.push(text(846, y + 25, label, 13, { weight: 700 }));
+    s.push(text(846, y + 45, detail, 10.5, { fill: C.muted }));
+    if (index < workflow.length - 1) {
+      s.push(line(986, y + 60, 986, y + 88, C.rule, 1));
+      s.push(`<path d="M981 ${y + 83} L986 ${y + 89} L991 ${y + 83}" fill="none" stroke="${C.rule}" stroke-width="1"/>`);
+    }
+  });
+  s.push(line(824, 512, 1148, 512, C.ink, 1.1));
+  s.push(text(824, 544, "TP · FP · FN", 14, { weight: 700 }));
+  s.push(text(1148, 544, "failure-inclusive", 10.5, { fill: C.muted, anchor: "end" }));
+  s.push(text(824, 584, "Evidence-verified detection F1", 13, { weight: 700 }));
+  s.push(text(824, 615, "2TP", 12, { weight: 700, anchor: "middle" }));
+  s.push(line(805, 621, 843, 621, C.ink, 1));
+  s.push(text(824, 639, "2TP + FP + FN", 10.5, { anchor: "middle" }));
+  s.push(text(1148, 625, "paired family-level inference", 10.5, { fill: C.muted, anchor: "end" }));
+  s.push("</svg>");
+  return s.join("\n");
+}
 
 function figure2() {
-  const s = [
-    svgStart(1200, 820, "Performance and reliability across local model configurations"),
-    text(34, 52, "Performance and reliability across local model configurations", 28, { weight: 700 }),
-    text(34, 78, "Failure-inclusive estimates; five repetitions are technical repeats, not independent samples", 16, { fill: C.muted }),
-    line(34, 92, 1166, 92, C.ink, 1.5),
-    text(34, 141, "A", 28, { weight: 700 }),
-    text(76, 138, "Evidence-verified F1", 21, { weight: 600 }),
-    rect(34, 154, 380, 616, C.white, { stroke: C.line, strokeWidth: 1, radius: 12 }),
-    text(438, 141, "B", 28, { weight: 700 }),
-    text(480, 138, "Precision–recall trade-off", 21, { weight: 600 }),
-    rect(438, 154, 342, 616, C.white, { stroke: C.line, strokeWidth: 1, radius: 12 }),
-    text(804, 141, "C", 28, { weight: 700 }),
-    text(846, 138, "Execution status", 21, { weight: 600 }),
-    rect(804, 154, 362, 616, C.white, { stroke: C.line, strokeWidth: 1, radius: 12 }),
-  ];
+  const performance = csv("figure2_condition_performance.csv");
+  const s = [svgStart(1200, 720, "Evidence-verified detection performance and execution reliability", "Mean-run F1, precision-recall trade-offs, and execution status across ten local configurations.")];
+  panelHeader(s, 32, 358, "A", "Mean-run F1");
+  panelHeader(s, 420, 356, "B", "Precision and recall");
+  panelHeader(s, 806, 362, "C", "Execution status");
+  s.push(line(405, 24, 405, 690, C.grid, 1));
+  s.push(line(791, 24, 791, 690, C.grid, 1));
 
-  const performance = [
-    ["Qwen single-RAG", 0.634, C.teal],
-    ["Qwen autonomous team", 0.615, C.teal],
-    ["Qwen fixed team", 0.605, C.teal],
-    ["Qwen − evidence check", 0.605, C.teal],
-    ["Qwen − clinical-context agent", 0.605, C.teal],
-    ["Qwen − retrieval", 0, C.teal],
-    ["gpt-oss fixed team", 0.261, C.orange],
-    ["Gemma single-RAG", 0.242, C.blue],
-    ["Gemma fixed team", 0.214, C.blue],
-    ["gpt-oss single-RAG", 0.092, C.orange],
-  ];
-  const ax0 = 196;
-  const aw = 184;
-  for (let index = 0; index <= 7; index += 1) {
-    s.push(text(ax0 + (aw * index) / 7, 735, (index / 10).toFixed(1), 11, { fill: C.muted, anchor: "middle" }));
-  }
-  performance.forEach(([label, value, color], index) => {
-    const y = 210 + index * 49;
-    const pointX = ax0 + (aw * value) / 0.7;
-    const labelLines = label === "Qwen autonomous team" ? ["Qwen autonomous", "team"] : label === "Qwen − evidence check" ? ["Qwen − evidence", "check"] : [label];
-    s.push(multiline(52, y, labelLines, 12.5, { weight: index < 3 ? 600 : 400 }));
-    s.push(line(ax0, y, pointX, y, C.lightGray, 2));
-    s.push(circle(pointX, y, 6, color));
-    s.push(text(pointX + 11, y + 4, value.toFixed(3), 12, { weight: 600 }));
+  const sorted = [...performance].sort((a, b) => n(b.mean_run_f1) - n(a.mean_run_f1));
+  const ax0 = 221;
+  const aw = 146;
+  [0, 0.2, 0.4, 0.6].forEach((value) => {
+    const x = ax0 + aw * value / 0.7;
+    s.push(line(x, 87, x, 616, C.grid, 0.7));
+    s.push(text(x, 640, value.toFixed(1), 10.5, { fill: C.muted, anchor: "middle" }));
   });
-  s.push(text(52, 758, "Mean of five run-specific micro-F1 values", 11.5, { fill: C.muted }));
+  sorted.forEach((row, index) => {
+    const y = 101 + index * 51;
+    const label = row.condition
+      .replace("Qwen without evidence checking", "Qwen − evidence checking")
+      .replace("Qwen without clinical-context agent", "Qwen − clinical-context")
+      .replace("Qwen without retrieval", "Qwen − retrieval");
+    const x = ax0 + aw * n(row.mean_run_f1) / 0.7;
+    s.push(text(42, y + 4, label, 11.2, { weight: index < 3 ? 700 : 400 }));
+    s.push(line(ax0, y, x, y, C.rule, 1.2));
+    s.push(circle(x, y, 5.4, modelColor(row.condition), C.white, 1));
+    s.push(text(Math.min(x + 10, 377), y + 4, score(row.mean_run_f1), 11, { weight: 700 }));
+  });
+  s.push(text(42, 674, "Five run-specific micro-F1 estimates averaged", 10.5, { fill: C.muted }));
 
-  const bx = 488;
-  const by = 646;
-  const bw = 250;
-  const bh = 430;
+  const bx = 478;
+  const by = 598;
+  const bw = 258;
+  const bh = 492;
   for (let index = 0; index <= 5; index += 1) {
     const value = index / 5;
-    const y = by - (bh * index) / 5;
-    s.push(line(bx, y, bx + bw, y, C.line, 0.8));
-    s.push(text(482, y + 4, value.toFixed(1), 11, { fill: C.muted, anchor: "end" }));
-    s.push(text(bx + (bw * index) / 5, 669, value.toFixed(1), 11, { fill: C.muted, anchor: "middle" }));
+    const x = bx + bw * value;
+    const y = by - bh * value;
+    s.push(line(bx, y, bx + bw, y, C.grid, 0.7));
+    s.push(text(bx - 10, y + 4, value.toFixed(1), 10.5, { fill: C.muted, anchor: "end" }));
+    s.push(text(x, 620, value.toFixed(1), 10.5, { fill: C.muted, anchor: "middle" }));
   }
-  s.push(text(613, 705, "Recall", 13, { weight: 600, fill: C.muted, anchor: "middle" }));
-  s.push(text(434, 431, "Precision", 13, { weight: 600, fill: C.muted, anchor: "middle", rotate: -90 }));
-  const points = [
-    { p: 0.813, r: 0.52, c: C.teal, label: "Qwen single", dx: 9, dy: -14 },
-    { p: 0.857, r: 0.48, c: C.teal, label: "Autonomous", dx: -10, dy: -16, anchor: "end" },
-    { p: 0.722, r: 0.52, c: C.teal, label: ["Fixed / − evidence /", "− clinical-context"], dx: -12, dy: 26, anchor: "end" },
-    { p: 0.5, r: 0.16, c: C.blue, label: "Gemma single", dx: 9, dy: -7 },
-    { p: 1.0, r: 0.12, c: C.blue, label: "Gemma fixed", dx: 9, dy: 4 },
-    { p: 0.109, r: 0.08, c: C.orange, label: "gpt-oss single", dx: 9, dy: 4 },
-    { p: 0.286, r: 0.24, c: C.orange, label: "gpt-oss fixed", dx: 9, dy: 4 },
-  ];
-  points.forEach((point) => {
-    const x = bx + bw * point.r;
-    const y = by - bh * point.p;
-    s.push(circle(x, y, 7, point.c));
-    if (Array.isArray(point.label)) {
-      s.push(multiline(x + point.dx, y + point.dy, point.label, 11.5, { weight: 600, anchor: point.anchor }));
-    } else {
-      s.push(text(x + point.dx, y + point.dy, point.label, 11.5, { weight: 600, anchor: point.anchor }));
-    }
+  s.push(text(607, 652, "Recall", 11.5, { weight: 700, anchor: "middle" }));
+  s.push(text(444, 352, "Precision", 11.5, { weight: 700, anchor: "middle", rotate: -90 }));
+  const offsets = {
+    qwen_single_rag: [10, 4, "start", "Qwen single"],
+    qwen_autonomous_team: [-10, -16, "end", "Qwen autonomous"],
+    qwen_fixed_team: [-12, 24, "end", "Qwen fixed / ablations"],
+    qwen_without_evidence_check: [0, 0, "start", ""],
+    qwen_without_context_role: [0, 0, "start", ""],
+    qwen_without_retrieval: [0, 0, "start", ""],
+    gemma_single_rag: [10, 4, "start", "Gemma single"],
+    gemma_fixed_team: [10, 4, "start", "Gemma fixed"],
+    gpt_oss_single_rag: [10, 4, "start", "gpt-oss single"],
+    gpt_oss_fixed_team: [10, 4, "start", "gpt-oss fixed"],
+  };
+  performance.forEach((row) => {
+    if (row.precision === "") return;
+    const x = bx + bw * n(row.recall);
+    const y = by - bh * n(row.precision);
+    s.push(circle(x, y, row.condition_id.includes("without") ? 3.8 : 5.7, modelColor(row.condition), C.white, 1));
+    const [dx, dy, anchor, label] = offsets[row.condition_id];
+    if (label) s.push(text(x + dx, y + dy, label, 10.5, { weight: 700, anchor }));
   });
-  s.push(rect(472, 704, 274, 42, C.pale, { radius: 6 }));
-  s.push(multiline(609, 723, ["No retrieval: no positive predictions; precision", "not estimable"], 11, { weight: 600, fill: C.muted, anchor: "middle" }));
+  s.push(text(430, 681, "No retrieval: no positive predictions; precision not estimable", 10, { fill: C.muted }));
 
-  const status = [
-    ["Qwen single", 290, 10, 0],
-    ["Qwen autonomous", 285, 15, 0],
-    ["Qwen fixed", 285, 15, 0],
-    ["− evidence", 285, 15, 0],
-    ["− clinical-context", 285, 15, 0],
-    ["− retrieval", 260, 40, 0],
-    ["Gemma single", 235, 65, 0],
-    ["Gemma fixed", 250, 50, 0],
-    ["gpt-oss single", 300, 0, 0],
-    ["gpt-oss fixed", 284, 11, 5],
-  ];
-  const sx = 920;
-  const sw = 214;
-  status.forEach(([label, complete, failed, refused], index) => {
-    const y = 202 + index * 49;
-    if (label === "Qwen autonomous") {
-      s.push(multiline(822, y - 3, ["Qwen", "autonomous"], 11.5, { weight: 600, lineHeight: 1.05 }));
-    } else if (label === "− clinical-context") {
-      s.push(text(822, y + 4, label, 10.5, { weight: 400 }));
-    } else {
-      s.push(text(822, y + 4, label, 12.2, { weight: index < 3 ? 600 : 400 }));
-    }
-    const completeWidth = (sw * complete) / 300;
-    const failedWidth = (sw * failed) / 300;
-    const refusedWidth = (sw * refused) / 300;
-    s.push(rect(sx, y - 8, completeWidth, 16, C.teal, { radius: 2 }));
-    if (failedWidth > 0) s.push(rect(sx + completeWidth, y - 8, failedWidth, 16, C.gray));
-    if (refusedWidth > 0) s.push(rect(sx + completeWidth + failedWidth, y - 8, refusedWidth, 16, C.red));
-    s.push(text(1160, y + 4, complete, 11, { weight: 600, anchor: "end" }));
+  const sx = 929;
+  const sw = 211;
+  performance.forEach((row, index) => {
+    const y = 100 + index * 51;
+    const label = row.condition
+      .replace("Qwen without evidence checking", "− evidence checking")
+      .replace("Qwen without clinical-context agent", "− clinical-context")
+      .replace("Qwen without retrieval", "− retrieval")
+      .replace(" team", "");
+    s.push(text(816, y + 4, label, 10.7, { weight: index < 3 ? 700 : 400 }));
+    const complete = n(row.complete);
+    const failed = n(row.failed);
+    const refused = n(row.refused);
+    const completeWidth = sw * complete / 300;
+    const failedWidth = sw * failed / 300;
+    const refusedWidth = sw * refused / 300;
+    s.push(rect(sx, y - 7, sw, 14, C.white, C.rule, 0.7));
+    s.push(rect(sx, y - 7, completeWidth, 14, C.teal));
+    if (failedWidth) s.push(rect(sx + completeWidth, y - 7, failedWidth, 14, C.gray));
+    if (refusedWidth) s.push(rect(sx + completeWidth + failedWidth, y - 7, refusedWidth, 14, C.rust));
+    s.push(text(1164, y + 4, String(complete), 10.5, { weight: 700, anchor: "end" }));
   });
-  s.push(text(920, 708, "0", 11, { fill: C.muted }));
-  s.push(text(1152, 708, "300 cells", 11, { fill: C.muted, anchor: "end" }));
-  [[824, C.teal, "Complete"], [928, C.gray, "Failed"], [1020, C.red, "Refused"]].forEach(([x, color, label]) => {
-    s.push(rect(x, 724, 12, 12, color, { radius: 2 }));
-    s.push(text(x + 18, 735, label, 11, { fill: C.muted }));
+  s.push(text(sx, 630, "0", 10.5, { fill: C.muted }));
+  s.push(text(sx + sw, 630, "300 cells", 10.5, { fill: C.muted, anchor: "end" }));
+  [[C.teal, "Complete"], [C.gray, "Failed"], [C.rust, "Refused"]].forEach(([color, label], index) => {
+    const x = 820 + index * 112;
+    s.push(rect(x, 658, 11, 11, color));
+    s.push(text(x + 17, 668, label, 10.5, { fill: C.muted }));
   });
   s.push("</svg>");
   return s.join("\n");
 }
 
 function figure3() {
-  const s = [
-    svgStart(1200, 800, "Architecture effects, ablations, and scenario-specific performance"),
-    text(34, 52, "Architecture effects, ablations, and scenario-specific performance", 28, { weight: 700 }),
-    text(34, 78, "Paired family-level inference, recent-KEV retrieval dependence, and stratum-specific F1", 16, { fill: C.muted }),
-    line(34, 92, 1166, 92, C.ink, 1.5),
-    text(34, 141, "A", 28, { weight: 700 }),
-    text(76, 138, "F1 effects", 21, { weight: 600 }),
-    rect(34, 154, 500, 596, C.white, { stroke: C.line, strokeWidth: 1, radius: 12 }),
-    text(558, 141, "B", 28, { weight: 700 }),
-    text(600, 138, "Retrieval ablation", 21, { weight: 600 }),
-    rect(558, 154, 280, 596, C.white, { stroke: C.line, strokeWidth: 1, radius: 12 }),
-    text(862, 141, "C", 28, { weight: 700 }),
-    text(904, 138, "Scenario-specific F1", 21, { weight: 600 }),
-    rect(862, 154, 304, 596, C.white, { stroke: C.line, strokeWidth: 1, radius: 12 }),
+  const effects = csv("figure3a_f1_effects.csv");
+  const retrieval = csv("figure3b_retrieval_window_recall.csv");
+  const subgroup = csv("figure3c_qwen_stratum_f1.csv");
+  const s = [svgStart(1200, 740, "Architecture effects, retrieval ablation, and scenario-specific performance", "Paired F1 effects with confidence intervals and P values, recall with and without retrieval, and Qwen subgroup F1.")];
+  panelHeader(s, 30, 620, "A", "Paired F1 effects");
+  panelHeader(s, 674, 238, "B", "Retrieval ablation");
+  panelHeader(s, 936, 234, "C", "F1 by scenario stratum");
+  s.push(line(662, 24, 662, 710, C.grid, 1));
+  s.push(line(924, 24, 924, 710, C.grid, 1));
+
+  const labels = {
+    "Qwen fixed team − single-RAG": "Qwen fixed − single",
+    "Evidence checking retained − removed": "Evidence check retained − removed",
+    "Clinical-context agent retained − removed": "Clinical-context retained − removed",
+    "Gemma fixed team − single-RAG": "Gemma fixed − single",
+    "gpt-oss fixed team − single-RAG": "gpt-oss fixed − single",
+    "Worst-case fixed-team effect across backbones": "Worst-case fixed-team effect",
+    "Qwen fixed team − Gemma fixed team": "Qwen fixed − Gemma fixed",
+    "Qwen fixed team − gpt-oss fixed team": "Qwen fixed − gpt-oss fixed",
+    "Qwen autonomous team − fixed team": "Qwen autonomous − fixed",
+    "Qwen autonomous team − single-RAG": "Qwen autonomous − single",
+  };
+  const orderedNames = [
+    "Qwen autonomous team − fixed team",
+    "Qwen autonomous team − single-RAG",
+    "Qwen fixed team − single-RAG",
+    "Gemma fixed team − single-RAG",
+    "gpt-oss fixed team − single-RAG",
+    "Worst-case fixed-team effect across backbones",
+    "Evidence checking retained − removed",
+    "Clinical-context agent retained − removed",
+    "Qwen fixed team − Gemma fixed team",
+    "Qwen fixed team − gpt-oss fixed team",
   ];
-  const effects = [
-    ["Autonomous − fixed", 0.010733, -0.119861, 0.143774, true],
-    ["Autonomous − single", -0.018762, -0.121053, 0.065163, false],
-    ["Qwen fixed − single", -0.029495, -0.13167, 0.066667, true],
-    ["Gemma fixed − single", -0.028139, -0.226852, 0.150878, false],
-    ["gpt-oss fixed − single", 0.168673, -0.006807, 0.344814, false],
-    ["Worst-case fixed-team effect", -0.029495, -0.226852, 0.035363, false],
-    ["Evidence check retained − removed", 0, 0, 0, true],
-    ["Clinical-context agent retained − removed", 0, 0, 0, false],
-    ["Qwen fixed − Gemma fixed", 0.390365, 0.212121, 0.57424, true],
-    ["Qwen fixed − gpt-oss fixed", 0.343782, 0.232146, 0.462412, true],
-  ];
-  const fx = 292;
-  const fw = 220;
+  const byName = new Map(effects.map((row) => [row.comparison, row]));
+  const ordered = orderedNames.map((name) => byName.get(name));
+  const fx = 270;
+  const fw = 158;
   const min = -0.25;
-  const max = 0.6;
-  const mapEffect = (value) => fx + (fw * (value - min)) / (max - min);
-  const zero = mapEffect(0);
-  s.push(rect(zero, 190, 1.2, 508, C.gray));
-  [-0.2, -0.05, 0.1, 0.25, 0.4, 0.55].forEach((value) => s.push(text(mapEffect(value), 704, value.toFixed(2), 10.5, { fill: C.muted, anchor: "middle" })));
-  effects.forEach(([label, value, lower, upper, filled], index) => {
-    const y = 200 + index * 49;
-    s.push(text(52, y + 2, label, 12.2, { weight: filled ? 600 : 400 }));
-    const lowerX = mapEffect(lower);
-    const upperX = mapEffect(upper);
-    const pointX = mapEffect(value);
-    if (Math.abs(upperX - lowerX) < 1) s.push(line(pointX - 5, y, pointX + 5, y, C.ink, 2));
-    else s.push(line(lowerX, y, upperX, y, C.ink, 2));
-    s.push(circle(pointX, y, 6, filled ? C.teal : C.white, { stroke: C.teal, strokeWidth: 2 }));
+  const max = 0.60;
+  const mapEffect = (value) => fx + fw * (value - min) / (max - min);
+  s.push(text(456, 82, "Difference (95% CI)", 10.5, { weight: 700, fill: C.muted }));
+  s.push(text(638, 82, "P value", 10.5, { weight: 700, fill: C.muted, anchor: "end" }));
+  s.push(line(mapEffect(0), 91, mapEffect(0), 619, C.gray, 1));
+  ordered.forEach((row, index) => {
+    const y = 108 + index * 51;
+    const isEmphasized = ["Confirmatory", "Multiplicity-adjusted"].includes(row.analysis_status);
+    const effect = n(row.effect);
+    const lower = n(row.ci_lower);
+    const upper = n(row.ci_upper);
+    s.push(text(40, y + 4, labels[row.comparison], 10.7, { weight: isEmphasized ? 700 : 400 }));
+    s.push(line(mapEffect(lower), y, mapEffect(upper), y, C.ink, 1.5));
+    s.push(circle(mapEffect(effect), y, 5.2, isEmphasized ? C.teal : C.white, C.teal, 1.5));
+    s.push(text(456, y + 4, `${minus(score(effect))} (${minus(score(lower))} to ${minus(score(upper))})`, 10.2));
+    const reportP = row.adjusted_p || row.raw_p;
+    s.push(text(638, y + 4, pValue(reportP), 10.2, { anchor: "end" }));
   });
-  s.push(text(402, 722, "Effect (intervention − comparator)", 11.5, { weight: 600, fill: C.muted, anchor: "middle" }));
-  s.push(circle(59, 740, 5, C.teal, { stroke: C.teal, strokeWidth: 1 }));
-  s.push(text(70, 744, "confirmatory / adjusted", 10.5, { fill: C.muted }));
-  s.push(circle(259, 740, 5, C.white, { stroke: C.teal, strokeWidth: 1.5 }));
-  s.push(text(270, 744, "descriptive / component", 10.5, { fill: C.muted }));
+  [-0.2, 0, 0.2, 0.4, 0.6].forEach((value) => {
+    const x = mapEffect(value);
+    s.push(line(x, 618, x, 624, C.ink, 0.8));
+    s.push(text(x, 642, minus(value.toFixed(1)), 10, { fill: C.muted, anchor: "middle" }));
+  });
+  s.push(text((fx + fx + fw) / 2, 667, "Intervention minus comparator", 10.5, { fill: C.muted, anchor: "middle" }));
+  s.push(circle(43, 694, 4.5, C.teal, C.teal, 1));
+  s.push(text(54, 698, "confirmatory or adjusted", 10, { fill: C.muted }));
+  s.push(circle(210, 694, 4.5, C.white, C.teal, 1.2));
+  s.push(text(221, 698, "descriptive or component", 10, { fill: C.muted }));
 
-  s.push(text(582, 193, "Affected-target recall", 14, { weight: 600, fill: C.muted }));
-  const retrieval = [["0–30 days", 1], ["31–60 days", 0.5], ["61–90 days", 0.75]];
-  const rx = 596;
-  const rw = 204;
-  retrieval.forEach(([label, value], index) => {
-    const y = 242 + index * 116;
-    s.push(text(582, y - 16, label, 13, { weight: 600 }));
-    s.push(line(rx, y, rx + rw, y, C.line, 2));
-    s.push(circle(rx, y, 7, C.white, { stroke: C.gray, strokeWidth: 2 }));
-    const pointX = rx + rw * value;
-    s.push(line(rx, y, pointX, y, C.teal, 4));
-    s.push(circle(pointX, y, 8, C.teal));
-    s.push(text(pointX, y - 24, value.toFixed(2), 12, { weight: 700, fill: C.teal, anchor: "middle" }));
+  const windows = ["0–30 days", "31–60 days", "61–90 days"];
+  const ry = [156, 298, 440];
+  windows.forEach((window, index) => {
+    const withRow = retrieval.find((row) => row.window === window && row.condition_id === "qwen_fixed_team");
+    const withoutRow = retrieval.find((row) => row.window === window && row.condition_id === "qwen_without_retrieval");
+    const y = ry[index];
+    const x0 = 704;
+    const x1 = 882;
+    const withX = x0 + (x1 - x0) * n(withRow.affected_target_recall);
+    const withoutX = x0 + (x1 - x0) * n(withoutRow.affected_target_recall);
+    s.push(text(688, y - 38, window, 11.5, { weight: 700 }));
+    s.push(line(x0, y, x1, y, C.grid, 1));
+    s.push(line(withoutX, y, withX, y, C.teal, 2.5));
+    s.push(circle(withoutX, y, 5.5, C.white, C.gray, 1.7));
+    s.push(circle(withX, y, 6, C.teal, C.teal, 1));
+    s.push(text(withX, y - 15, score(withRow.affected_target_recall), 10.5, { weight: 700, anchor: "middle" }));
   });
-  [0, 0.25, 0.5, 0.75, 1].forEach((value) => s.push(text(rx + rw * value, 602, value.toFixed(2), 10.5, { fill: C.muted, anchor: "middle" })));
-  s.push(rect(582, 634, 232, 86, C.pale, { radius: 8 }));
-  s.push(text(598, 663, "With retrieval", 12, { weight: 600, fill: C.teal }));
-  s.push(text(790, 667, "0.75", 19, { weight: 700, fill: C.teal, anchor: "end" }));
-  s.push(text(598, 694, "Without retrieval", 12, { weight: 600, fill: C.muted }));
-  s.push(text(790, 698, "0.00", 19, { weight: 700, fill: C.muted, anchor: "end" }));
-  s.push(text(698, 735, "Aggregate difference 0.75 (95% CI 0.50–0.92)", 10.5, { fill: C.muted, anchor: "middle" }));
+  [0, 0.5, 1].forEach((value) => s.push(text(704 + 178 * value, 505, value.toFixed(1), 10, { fill: C.muted, anchor: "middle" })));
+  s.push(line(704, 488, 882, 488, C.ink, 0.8));
+  s.push(circle(698, 548, 4.5, C.teal, C.teal, 1));
+  s.push(text(709, 552, "With retrieval", 10.3));
+  s.push(circle(798, 548, 4.5, C.white, C.gray, 1.3));
+  s.push(text(809, 552, "Without", 10.3));
+  s.push(line(688, 580, 898, 580, C.rule, 0.8));
+  s.push(text(688, 609, "Aggregate difference", 10.5, { fill: C.muted }));
+  s.push(text(898, 609, "0.75 (0.50 to 0.92)", 11, { weight: 700, anchor: "end" }));
+  s.push(text(898, 632, "P<0.001", 10.5, { anchor: "end" }));
 
-  const heatColumns = ["0–30 d", "31–60 d", "61–90 d", "Other CVE", "Misconfig."];
-  const heatRows = [
-    ["Single-RAG", [0.857, 0.75, 0.857, 0.667, 0]],
-    ["Autonomous", [0.667, 0.75, 0.667, 0.833, 0]],
-    ["Fixed team", [0.889, 0.571, 0.857, 0.615, 0]],
-  ];
-  const hx = 942;
-  const hy = 248;
-  const cellWidth = 41;
-  const cellHeight = 62;
-  heatColumns.forEach((label, index) => {
-    const x = hx + index * cellWidth + 18;
-    if (index < 3) s.push(text(x, 222, label, 10.5, { weight: 600, fill: C.muted, anchor: "middle", rotate: -45 }));
-    else if (index === 3) s.push(multiline(x - 3, 190, ["Other", "CVE"], 10.5, { weight: 600, fill: C.muted, anchor: "middle" }));
-    else s.push(multiline(x + 3, 190, ["Mis-", "config."], 10.5, { weight: 600, fill: C.muted, anchor: "middle" }));
-  });
-  heatRows.forEach(([label, values], rowIndex) => {
-    const y = hy + rowIndex * cellHeight;
-    s.push(text(936, y + 34, label, 10.5, { weight: 600, anchor: "end" }));
-    values.forEach((value, columnIndex) => {
-      const mix = (a, b) => Math.round(a * (1 - value) + b * value);
-      const fill = `rgb(${mix(224, 0)},${mix(240, 124)},${mix(242, 145)})`;
-      const x = hx + columnIndex * cellWidth;
-      s.push(rect(x, y, cellWidth - 3, cellHeight - 3, fill, { stroke: C.white, strokeWidth: 1, radius: 2 }));
-      s.push(text(x + (cellWidth - 3) / 2, y + 34, value.toFixed(3), 10.5, { weight: 700, fill: value > 0.65 ? C.white : C.ink, anchor: "middle" }));
+  const columns = ["Recent KEV, 0–30 days", "Recent KEV, 31–60 days", "Recent KEV, 61–90 days", "Other CVE", "Synthetic misconfiguration"];
+  const columnLabels = [["0–30", "d"], ["31–60", "d"], ["61–90", "d"], ["Other", "CVE"], ["Mis-", "config."]];
+  const rowIds = [["qwen_single_rag", "Single"], ["qwen_autonomous_team", "Autonomous"], ["qwen_fixed_team", "Fixed"]];
+  const hx = 998;
+  const hy = 166;
+  const cw = 34;
+  const ch = 62;
+  columnLabels.forEach((values, index) => s.push(multiline(hx + index * cw + 15, 108, values, 9.5, { weight: 700, fill: C.muted, anchor: "middle" })));
+  rowIds.forEach(([id, label], rowIndex) => {
+    const y = hy + rowIndex * ch;
+    s.push(text(990, y + 32, label, 10.2, { weight: 700, anchor: "end" }));
+    columns.forEach((stratum, columnIndex) => {
+      const row = subgroup.find((item) => item.condition_id === id && item.stratum === stratum);
+      const value = n(row.f1);
+      const fill = value === 0 ? C.pale : value >= 0.8 ? C.teal : value >= 0.65 ? "#73AFB8" : "#B4D2D7";
+      const x = hx + columnIndex * cw;
+      s.push(rect(x, y, cw - 3, ch - 4, fill, C.white, 1));
+      s.push(text(x + (cw - 3) / 2, y + 33, score(value), 9.4, { weight: 700, fill: value >= 0.8 ? C.white : C.ink, anchor: "middle" }));
     });
   });
-  s.push(text(1000, 461, "Recent KEV", 12, { weight: 600, fill: C.muted, anchor: "middle" }));
-  s.push(line(950, 478, 1055, 478, C.teal, 3));
-  s.push(text(1084, 461, "Other", 12, { weight: 600, fill: C.muted, anchor: "middle" }));
-  s.push(line(1068, 478, 1102, 478, C.blue, 3));
-  s.push(multiline(1133, 457, ["Rule-", "based"], 12, { weight: 600, fill: C.muted, anchor: "middle" }));
-  s.push(line(1115, 482, 1151, 482, C.orange, 3));
-  s.push(rect(886, 510, 256, 86, C.pale, { radius: 8 }));
-  s.push(text(1014, 539, "All three core Qwen configurations", 12, { weight: 600, anchor: "middle" }));
-  s.push(text(1014, 571, "Clean controls: 0 FP / 50 cells each", 13, { weight: 700, fill: C.teal, anchor: "middle" }));
-  s.push(rect(886, 622, 256, 96, "#FFF5DC", { radius: 8 }));
-  s.push(text(1014, 651, "Shared limitation", 12, { weight: 700, fill: C.orange, anchor: "middle" }));
-  s.push(multiline(1014, 684, ["Synthetic misconfiguration F1 =", "0"], 14, { weight: 700, anchor: "middle" }));
+  s.push(line(948, 385, 1166, 385, C.rule, 0.8));
+  s.push(text(948, 419, "Clean controls", 10.5, { fill: C.muted }));
+  s.push(text(1166, 419, "0 FP / 50 cells each", 10.5, { weight: 700, anchor: "end" }));
+  s.push(text(948, 458, "Misconfiguration", 10.5, { fill: C.muted }));
+  s.push(text(1166, 458, "F1 0.00", 10.5, { weight: 700, anchor: "end" }));
+  s.push(line(948, 477, 1166, 477, C.grid, 0.8));
+  s.push(multiline(948, 516, ["All three core Qwen", "configurations showed the", "same rule-based failure."], 10.5, { fill: C.muted, lineHeight: 1.35 }));
   s.push("</svg>");
   return s.join("\n");
 }
 
-fs.writeFileSync(path.join(masterDir, "figure2.svg"), figure2(), "utf8");
-fs.writeFileSync(path.join(masterDir, "figure3.svg"), figure3(), "utf8");
-console.log(JSON.stringify({ output: masterDir, files: ["figure2.svg", "figure3.svg"] }));
+const outputs = { figure1: figure1(), figure2: figure2(), figure3: figure3() };
+for (const [stem, payload] of Object.entries(outputs)) {
+  fs.writeFileSync(path.join(masterDir, `${stem}.svg`), payload, "utf8");
+}
+console.log(JSON.stringify({ output: masterDir, files: Object.keys(outputs).map((stem) => `${stem}.svg`), sourceDir }));

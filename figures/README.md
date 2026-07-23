@@ -1,19 +1,7 @@
-# Figure assets
+# Paper figures v3
 
-`masters/` contains the three reviewed SVG masters. `submission/` contains the corresponding PDF
-and 600-dpi PNG derivatives, and `source_data/` contains the numerical CSV inputs used for article
-checking. All release masters declare `Arial, Helvetica, sans-serif` and use one consistent visual
-system.
+`build_vector_art.mjs` reproduces all three publication SVG masters from the frozen figure source data. The visual system follows a clinical-journal data-graphic convention: white field, square geometry, thin black or gray rules, direct labels, one restrained teal accent, and grayscale comparators. Figure titles and interpretive prose remain in the manuscript captions rather than inside the artwork.
 
-`scripts/build_vector_art.mjs` is retained as design provenance for Figures 2 and 3. It uses only
-Node.js built-ins and writes to `masters/`, but its rounded display values are embedded in the
-script; it is not the statistical source of truth. Figure 1 is the reviewed vector master and has no
-code generator in this package. The authoritative numerical outputs are the CSV files in
-`source_data/` and `results/`.
+Release SVGs declare `Arial, Helvetica, sans-serif`; raster submission files are rendered on Windows with Arial installed. Displayed scores and confidence limits use two decimal places. Displayed P values use three decimal places, with values below 0.001 reported as `<0.001`. Machine-readable source data retain full numeric precision.
 
-Run `python scripts/build_figure_manifest.py` from the repository root after an approved figure
-revision. The release-wide manifest independently hashes every master and derivative.
-
-Figure source CSVs are presentation-layer inputs. Figure 3A intentionally omits the retrieval
-contrast shown in Figure 3B; its remaining ten contrasts are tested to round-trip through the same
-six-decimal/six-significant-digit policy used for article Table 3.
+No Python plotting library is used. `masters/` contains the authoritative vector SVG sources. `submission/` contains 600-dpi PNG/TIFF and PDF derivatives generated from those masters. The files in `review/` are superseded historical prototypes and are not publication artifacts.

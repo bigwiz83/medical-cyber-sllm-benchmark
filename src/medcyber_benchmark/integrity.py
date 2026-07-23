@@ -147,7 +147,7 @@ def write_manifest(root: Path) -> Path:
     payload = {
         "schema_version": "public-release-manifest-1.0.0",
         "study_id": "MEDCYBER-SLLM-PAPER-01",
-        "release_version": "1.0.0",
+        "release_version": "1.0.1",
         "manifest_excludes_self": True,
         "file_count": len(entries),
         "total_size_bytes": sum(item["size_bytes"] for item in entries),

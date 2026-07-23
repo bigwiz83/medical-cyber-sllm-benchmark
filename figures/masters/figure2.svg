@@ -1,158 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
-<title id="title">Performance and reliability across local model configurations</title>
-<desc id="desc">Publication figure for the synthetic hospital cybersecurity benchmark.</desc>
-<rect width="1200" height="820" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Evidence-verified detection performance and execution reliability</title>
+<desc id="desc">Mean-run F1, precision-recall trade-offs, and execution status across ten local configurations.</desc>
+<rect width="1200" height="720" fill="white"/>
 <style>
-text { font-family: Arial, Helvetica, sans-serif; fill: #17212B; }
-.muted { fill: #5B6672; }
-.bold { font-weight: 700; }
-.semibold { font-weight: 600; }
-.panel { fill: white; stroke: #D7E0E6; stroke-width: 1; }
+text { font-family: Arial, Helvetica, sans-serif; fill: #111111; }
+.label { font-size: 12px; }
+.small { font-size: 10.5px; }
 </style>
-<text x="34" y="52" font-size="28" font-weight="700" fill="#17212B" text-anchor="start" class="">Performance and reliability across local model configurations</text>
-<text x="34" y="78" font-size="16" font-weight="400" fill="#5B6672" text-anchor="start" class="">Failure-inclusive estimates; five repetitions are technical repeats, not independent samples</text>
-<line x1="34" y1="92" x2="1166" y2="92" stroke="#17212B" stroke-width="1.5"/>
-<text x="34" y="141" font-size="28" font-weight="700" fill="#17212B" text-anchor="start" class="">A</text>
-<text x="76" y="138" font-size="21" font-weight="600" fill="#17212B" text-anchor="start" class="">Evidence-verified F1</text>
-<rect x="34" y="154" width="380" height="616" rx="12" fill="#FFFFFF" stroke="#D7E0E6" stroke-width="1"/>
-<text x="438" y="141" font-size="28" font-weight="700" fill="#17212B" text-anchor="start" class="">B</text>
-<text x="480" y="138" font-size="21" font-weight="600" fill="#17212B" text-anchor="start" class="">Precision–recall trade-off</text>
-<rect x="438" y="154" width="342" height="616" rx="12" fill="#FFFFFF" stroke="#D7E0E6" stroke-width="1"/>
-<text x="804" y="141" font-size="28" font-weight="700" fill="#17212B" text-anchor="start" class="">C</text>
-<text x="846" y="138" font-size="21" font-weight="600" fill="#17212B" text-anchor="start" class="">Execution status</text>
-<rect x="804" y="154" width="362" height="616" rx="12" fill="#FFFFFF" stroke="#D7E0E6" stroke-width="1"/>
-<text x="196" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.0</text>
-<text x="222.28571428571428" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.1</text>
-<text x="248.57142857142856" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.2</text>
-<text x="274.8571428571429" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.3</text>
-<text x="301.1428571428571" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.4</text>
-<text x="327.42857142857144" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.5</text>
-<text x="353.7142857142857" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.6</text>
-<text x="380" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.7</text>
-<text x="52" y="210" font-size="12.5" font-weight="600" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Qwen single-RAG</tspan></text>
-<line x1="196" y1="210" x2="362.6514285714286" y2="210" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="362.6514285714286" cy="210" r="6" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="373.6514285714286" y="214" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.634</text>
-<text x="52" y="259" font-size="12.5" font-weight="600" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Qwen autonomous</tspan><tspan x="52" dy="15.625">team</tspan></text>
-<line x1="196" y1="259" x2="357.65714285714284" y2="259" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="357.65714285714284" cy="259" r="6" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="368.65714285714284" y="263" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.615</text>
-<text x="52" y="308" font-size="12.5" font-weight="600" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Qwen fixed team</tspan></text>
-<line x1="196" y1="308" x2="355.02857142857147" y2="308" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="355.02857142857147" cy="308" r="6" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="366.02857142857147" y="312" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.605</text>
-<text x="52" y="357" font-size="12.5" font-weight="400" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Qwen − evidence</tspan><tspan x="52" dy="15.625">check</tspan></text>
-<line x1="196" y1="357" x2="355.02857142857147" y2="357" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="355.02857142857147" cy="357" r="6" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="366.02857142857147" y="361" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.605</text>
-<text x="52" y="406" font-size="12.5" font-weight="400" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Qwen − clinical-context agent</tspan></text>
-<line x1="196" y1="406" x2="355.02857142857147" y2="406" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="355.02857142857147" cy="406" r="6" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="366.02857142857147" y="410" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.605</text>
-<text x="52" y="455" font-size="12.5" font-weight="400" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Qwen − retrieval</tspan></text>
-<line x1="196" y1="455" x2="196" y2="455" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="196" cy="455" r="6" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="207" y="459" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.000</text>
-<text x="52" y="504" font-size="12.5" font-weight="400" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">gpt-oss fixed team</tspan></text>
-<line x1="196" y1="504" x2="264.60571428571427" y2="504" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="264.60571428571427" cy="504" r="6" fill="#E69F00" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="275.60571428571427" y="508" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.261</text>
-<text x="52" y="553" font-size="12.5" font-weight="400" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Gemma single-RAG</tspan></text>
-<line x1="196" y1="553" x2="259.6114285714286" y2="553" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="259.6114285714286" cy="553" r="6" fill="#2F6B9A" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="270.6114285714286" y="557" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.242</text>
-<text x="52" y="602" font-size="12.5" font-weight="400" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">Gemma fixed team</tspan></text>
-<line x1="196" y1="602" x2="252.25142857142856" y2="602" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="252.25142857142856" cy="602" r="6" fill="#2F6B9A" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="263.25142857142856" y="606" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.214</text>
-<text x="52" y="651" font-size="12.5" font-weight="400" fill="#17212B" text-anchor="start"><tspan x="52" dy="0">gpt-oss single-RAG</tspan></text>
-<line x1="196" y1="651" x2="220.18285714285713" y2="651" stroke="#DBE0E5" stroke-width="2"/>
-<circle cx="220.18285714285713" cy="651" r="6" fill="#E69F00" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="231.18285714285713" y="655" font-size="12" font-weight="600" fill="#17212B" text-anchor="start" class="">0.092</text>
-<text x="52" y="758" font-size="11.5" font-weight="400" fill="#5B6672" text-anchor="start" class="">Mean of five run-specific micro-F1 values</text>
-<line x1="488" y1="646" x2="738" y2="646" stroke="#D7E0E6" stroke-width="0.8"/>
-<text x="482" y="650" font-size="11" font-weight="400" fill="#5B6672" text-anchor="end" class="">0.0</text>
-<text x="488" y="669" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.0</text>
-<line x1="488" y1="560" x2="738" y2="560" stroke="#D7E0E6" stroke-width="0.8"/>
-<text x="482" y="564" font-size="11" font-weight="400" fill="#5B6672" text-anchor="end" class="">0.2</text>
-<text x="538" y="669" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.2</text>
-<line x1="488" y1="474" x2="738" y2="474" stroke="#D7E0E6" stroke-width="0.8"/>
-<text x="482" y="478" font-size="11" font-weight="400" fill="#5B6672" text-anchor="end" class="">0.4</text>
-<text x="588" y="669" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.4</text>
-<line x1="488" y1="388" x2="738" y2="388" stroke="#D7E0E6" stroke-width="0.8"/>
-<text x="482" y="392" font-size="11" font-weight="400" fill="#5B6672" text-anchor="end" class="">0.6</text>
-<text x="638" y="669" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.6</text>
-<line x1="488" y1="302" x2="738" y2="302" stroke="#D7E0E6" stroke-width="0.8"/>
-<text x="482" y="306" font-size="11" font-weight="400" fill="#5B6672" text-anchor="end" class="">0.8</text>
-<text x="688" y="669" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">0.8</text>
-<line x1="488" y1="216" x2="738" y2="216" stroke="#D7E0E6" stroke-width="0.8"/>
-<text x="482" y="220" font-size="11" font-weight="400" fill="#5B6672" text-anchor="end" class="">1.0</text>
-<text x="738" y="669" font-size="11" font-weight="400" fill="#5B6672" text-anchor="middle" class="">1.0</text>
-<text x="613" y="705" font-size="13" font-weight="600" fill="#5B6672" text-anchor="middle" class="">Recall</text>
-<text x="434" y="431" font-size="13" font-weight="600" fill="#5B6672" text-anchor="middle" class="" transform="rotate(-90 434 431)">Precision</text>
-<circle cx="618" cy="296.41" r="7" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="627" y="282.41" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="start" class="">Qwen single</text>
-<circle cx="608" cy="277.49" r="7" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="598" y="261.49" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="end" class="">Autonomous</text>
-<circle cx="618" cy="335.54" r="7" fill="#007C91" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="606" y="361.54" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="end"><tspan x="606" dy="0">Fixed / − evidence /</tspan><tspan x="606" dy="14.375">− clinical-context</tspan></text>
-<circle cx="528" cy="431" r="7" fill="#2F6B9A" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="537" y="424" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="start" class="">Gemma single</text>
-<circle cx="518" cy="216" r="7" fill="#2F6B9A" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="527" y="220" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="start" class="">Gemma fixed</text>
-<circle cx="508" cy="599.13" r="7" fill="#E69F00" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="517" y="603.13" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="start" class="">gpt-oss single</text>
-<circle cx="548" cy="523.02" r="7" fill="#E69F00" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="557" y="527.02" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="start" class="">gpt-oss fixed</text>
-<rect x="472" y="704" width="274" height="42" rx="6" fill="#F3F6F8" stroke="none" stroke-width="0"/>
-<text x="609" y="723" font-size="11" font-weight="600" fill="#5B6672" text-anchor="middle"><tspan x="609" dy="0">No retrieval: no positive predictions; precision</tspan><tspan x="609" dy="13.75">not estimable</tspan></text>
-<text x="822" y="206" font-size="12.2" font-weight="600" fill="#17212B" text-anchor="start" class="">Qwen single</text>
-<rect x="920" y="194" width="206.86666666666667" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1126.8666666666668" y="194" width="7.133333333333334" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="206" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">290</text>
-<text x="822" y="248" font-size="11.5" font-weight="600" fill="#17212B" text-anchor="start"><tspan x="822" dy="0">Qwen</tspan><tspan x="822" dy="12.075000000000001">autonomous</tspan></text>
-<rect x="920" y="243" width="203.3" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1123.3" y="243" width="10.7" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="255" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">285</text>
-<text x="822" y="304" font-size="12.2" font-weight="600" fill="#17212B" text-anchor="start" class="">Qwen fixed</text>
-<rect x="920" y="292" width="203.3" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1123.3" y="292" width="10.7" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="304" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">285</text>
-<text x="822" y="353" font-size="12.2" font-weight="400" fill="#17212B" text-anchor="start" class="">− evidence</text>
-<rect x="920" y="341" width="203.3" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1123.3" y="341" width="10.7" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="353" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">285</text>
-<text x="822" y="402" font-size="10.5" font-weight="400" fill="#17212B" text-anchor="start" class="">− clinical-context</text>
-<rect x="920" y="390" width="203.3" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1123.3" y="390" width="10.7" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="402" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">285</text>
-<text x="822" y="451" font-size="12.2" font-weight="400" fill="#17212B" text-anchor="start" class="">− retrieval</text>
-<rect x="920" y="439" width="185.46666666666667" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1105.4666666666667" y="439" width="28.533333333333335" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="451" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">260</text>
-<text x="822" y="500" font-size="12.2" font-weight="400" fill="#17212B" text-anchor="start" class="">Gemma single</text>
-<rect x="920" y="488" width="167.63333333333333" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1087.6333333333332" y="488" width="46.36666666666667" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="500" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">235</text>
-<text x="822" y="549" font-size="12.2" font-weight="400" fill="#17212B" text-anchor="start" class="">Gemma fixed</text>
-<rect x="920" y="537" width="178.33333333333334" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1098.3333333333333" y="537" width="35.666666666666664" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="1160" y="549" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">250</text>
-<text x="822" y="598" font-size="12.2" font-weight="400" fill="#17212B" text-anchor="start" class="">gpt-oss single</text>
-<rect x="920" y="586" width="214" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<text x="1160" y="598" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">300</text>
-<text x="822" y="647" font-size="12.2" font-weight="400" fill="#17212B" text-anchor="start" class="">gpt-oss fixed</text>
-<rect x="920" y="635" width="202.58666666666667" height="16" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<rect x="1122.5866666666666" y="635" width="7.846666666666667" height="16" rx="0" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<rect x="1130.4333333333332" y="635" width="3.566666666666667" height="16" rx="0" fill="#B2332E" stroke="none" stroke-width="0"/>
-<text x="1160" y="647" font-size="11" font-weight="600" fill="#17212B" text-anchor="end" class="">284</text>
-<text x="920" y="708" font-size="11" font-weight="400" fill="#5B6672" text-anchor="start" class="">0</text>
-<text x="1152" y="708" font-size="11" font-weight="400" fill="#5B6672" text-anchor="end" class="">300 cells</text>
-<rect x="824" y="724" width="12" height="12" rx="2" fill="#007C91" stroke="none" stroke-width="0"/>
-<text x="842" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="start" class="">Complete</text>
-<rect x="928" y="724" width="12" height="12" rx="2" fill="#9AA4AD" stroke="none" stroke-width="0"/>
-<text x="946" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="start" class="">Failed</text>
-<rect x="1020" y="724" width="12" height="12" rx="2" fill="#B2332E" stroke="none" stroke-width="0"/>
-<text x="1038" y="735" font-size="11" font-weight="400" fill="#5B6672" text-anchor="start" class="">Refused</text>
+<text x="32" y="42" font-size="24" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">A</text>
+<text x="70" y="40" font-size="17" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Mean-run F1</text>
+<line x1="32" y1="57" x2="390" y2="57" stroke="#111111" stroke-width="1.1"/>
+<text x="420" y="42" font-size="24" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">B</text>
+<text x="458" y="40" font-size="17" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Precision and recall</text>
+<line x1="420" y1="57" x2="776" y2="57" stroke="#111111" stroke-width="1.1"/>
+<text x="806" y="42" font-size="24" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">C</text>
+<text x="844" y="40" font-size="17" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Execution status</text>
+<line x1="806" y1="57" x2="1168" y2="57" stroke="#111111" stroke-width="1.1"/>
+<line x1="405" y1="24" x2="405" y2="690" stroke="#DDDDDD" stroke-width="1"/>
+<line x1="791" y1="24" x2="791" y2="690" stroke="#DDDDDD" stroke-width="1"/>
+<line x1="221" y1="87" x2="221" y2="616" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="221" y="640" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.0</text>
+<line x1="262.7142857142857" y1="87" x2="262.7142857142857" y2="616" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="262.7142857142857" y="640" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.2</text>
+<line x1="304.42857142857144" y1="87" x2="304.42857142857144" y2="616" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="304.42857142857144" y="640" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.4</text>
+<line x1="346.1428571428571" y1="87" x2="346.1428571428571" y2="616" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="346.1428571428571" y="640" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.6</text>
+<text x="42" y="105" font-size="11.2" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Qwen single-RAG</text>
+<line x1="221" y1="101" x2="353.26480836236937" y2="101" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="353.26480836236937" cy="101" r="5.4" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="363.26480836236937" y="105" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.63</text>
+<text x="42" y="156" font-size="11.2" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Qwen autonomous team</text>
+<line x1="221" y1="152" x2="349.35164835164835" y2="152" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="349.35164835164835" cy="152" r="5.4" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="359.35164835164835" y="156" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.62</text>
+<text x="42" y="207" font-size="11.2" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Qwen fixed team</text>
+<line x1="221" y1="203" x2="347.1129568106312" y2="203" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="347.1129568106312" cy="203" r="5.4" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="357.1129568106312" y="207" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.60</text>
+<text x="42" y="258" font-size="11.2" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">Qwen − evidence checking</text>
+<line x1="221" y1="254" x2="347.1129568106312" y2="254" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="347.1129568106312" cy="254" r="5.4" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="357.1129568106312" y="258" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.60</text>
+<text x="42" y="309" font-size="11.2" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">Qwen − clinical-context</text>
+<line x1="221" y1="305" x2="347.1129568106312" y2="305" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="347.1129568106312" cy="305" r="5.4" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="357.1129568106312" y="309" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.60</text>
+<text x="42" y="360" font-size="11.2" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">gpt-oss fixed team</text>
+<line x1="221" y1="356" x2="275.4099378881988" y2="356" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="275.4099378881988" cy="356" r="5.4" fill="#A34A2A" stroke="#FFFFFF" stroke-width="1"/>
+<text x="285.4099378881988" y="360" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.26</text>
+<text x="42" y="411" font-size="11.2" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">Gemma single-RAG</text>
+<line x1="221" y1="407" x2="271.5627705627706" y2="407" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="271.5627705627706" cy="407" r="5.4" fill="#627D8C" stroke="#FFFFFF" stroke-width="1"/>
+<text x="281.5627705627706" y="411" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.24</text>
+<text x="42" y="462" font-size="11.2" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">Gemma fixed team</text>
+<line x1="221" y1="458" x2="265.6938775510204" y2="458" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="265.6938775510204" cy="458" r="5.4" fill="#627D8C" stroke="#FFFFFF" stroke-width="1"/>
+<text x="275.6938775510204" y="462" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.21</text>
+<text x="42" y="513" font-size="11.2" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">gpt-oss single-RAG</text>
+<line x1="221" y1="509" x2="240.2295311923219" y2="509" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="240.2295311923219" cy="509" r="5.4" fill="#A34A2A" stroke="#FFFFFF" stroke-width="1"/>
+<text x="250.2295311923219" y="513" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.09</text>
+<text x="42" y="564" font-size="11.2" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">Qwen − retrieval</text>
+<line x1="221" y1="560" x2="221" y2="560" stroke="#B7B7B7" stroke-width="1.2"/>
+<circle cx="221" cy="560" r="5.4" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="231" y="564" font-size="11" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">0.00</text>
+<text x="42" y="674" font-size="10.5" font-weight="400" fill="#555555" text-anchor="start" font-style="normal">Five run-specific micro-F1 estimates averaged</text>
+<line x1="478" y1="598" x2="736" y2="598" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="468" y="602" font-size="10.5" font-weight="400" fill="#555555" text-anchor="end" font-style="normal">0.0</text>
+<text x="478" y="620" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.0</text>
+<line x1="478" y1="499.6" x2="736" y2="499.6" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="468" y="503.6" font-size="10.5" font-weight="400" fill="#555555" text-anchor="end" font-style="normal">0.2</text>
+<text x="529.6" y="620" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.2</text>
+<line x1="478" y1="401.2" x2="736" y2="401.2" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="468" y="405.2" font-size="10.5" font-weight="400" fill="#555555" text-anchor="end" font-style="normal">0.4</text>
+<text x="581.2" y="620" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.4</text>
+<line x1="478" y1="302.8" x2="736" y2="302.8" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="468" y="306.8" font-size="10.5" font-weight="400" fill="#555555" text-anchor="end" font-style="normal">0.6</text>
+<text x="632.8" y="620" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.6</text>
+<line x1="478" y1="204.39999999999998" x2="736" y2="204.39999999999998" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="468" y="208.39999999999998" font-size="10.5" font-weight="400" fill="#555555" text-anchor="end" font-style="normal">0.8</text>
+<text x="684.4" y="620" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">0.8</text>
+<line x1="478" y1="106" x2="736" y2="106" stroke="#DDDDDD" stroke-width="0.7"/>
+<text x="468" y="110" font-size="10.5" font-weight="400" fill="#555555" text-anchor="end" font-style="normal">1.0</text>
+<text x="736" y="620" font-size="10.5" font-weight="400" fill="#555555" text-anchor="middle" font-style="normal">1.0</text>
+<text x="607" y="652" font-size="11.5" font-weight="700" fill="#111111" text-anchor="middle" font-style="normal">Recall</text>
+<text x="444" y="352" font-size="11.5" font-weight="700" fill="#111111" text-anchor="middle" font-style="normal" transform="rotate(-90 444 352)">Precision</text>
+<circle cx="612.16" cy="198.25" r="5.7" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="622.16" y="202.25" font-size="10.5" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Qwen single</text>
+<circle cx="601.84" cy="176.28571428571433" r="5.7" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="591.84" y="160.28571428571433" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">Qwen autonomous</text>
+<circle cx="612.16" cy="242.66666666666669" r="5.7" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<text x="600.16" y="266.6666666666667" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">Qwen fixed / ablations</text>
+<circle cx="612.16" cy="242.66666666666669" r="3.8" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="612.16" cy="242.66666666666669" r="3.8" fill="#007C91" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="519.28" cy="352" r="5.7" fill="#627D8C" stroke="#FFFFFF" stroke-width="1"/>
+<text x="529.28" y="356" font-size="10.5" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Gemma single</text>
+<circle cx="508.96" cy="106" r="5.7" fill="#627D8C" stroke="#FFFFFF" stroke-width="1"/>
+<text x="518.96" y="110" font-size="10.5" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Gemma fixed</text>
+<circle cx="498.64" cy="544.5217391304348" r="5.7" fill="#A34A2A" stroke="#FFFFFF" stroke-width="1"/>
+<text x="508.64" y="548.5217391304348" font-size="10.5" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">gpt-oss single</text>
+<circle cx="539.92" cy="457.42857142857144" r="5.7" fill="#A34A2A" stroke="#FFFFFF" stroke-width="1"/>
+<text x="549.92" y="461.42857142857144" font-size="10.5" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">gpt-oss fixed</text>
+<text x="430" y="681" font-size="10" font-weight="400" fill="#555555" text-anchor="start" font-style="normal">No retrieval: no positive predictions; precision not estimable</text>
+<text x="816" y="104" font-size="10.7" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Qwen single-RAG</text>
+<rect x="929" y="93" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="93" width="203.96666666666667" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1132.9666666666667" y="93" width="7.033333333333333" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="104" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">290</text>
+<text x="816" y="155" font-size="10.7" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Qwen autonomous</text>
+<rect x="929" y="144" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="144" width="200.45" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1129.45" y="144" width="10.55" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="155" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">285</text>
+<text x="816" y="206" font-size="10.7" font-weight="700" fill="#111111" text-anchor="start" font-style="normal">Qwen fixed</text>
+<rect x="929" y="195" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="195" width="200.45" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1129.45" y="195" width="10.55" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="206" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">285</text>
+<text x="816" y="257" font-size="10.7" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">− evidence checking</text>
+<rect x="929" y="246" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="246" width="200.45" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1129.45" y="246" width="10.55" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="257" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">285</text>
+<text x="816" y="308" font-size="10.7" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">− clinical-context</text>
+<rect x="929" y="297" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="297" width="200.45" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1129.45" y="297" width="10.55" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="308" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">285</text>
+<text x="816" y="359" font-size="10.7" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">− retrieval</text>
+<rect x="929" y="348" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="348" width="182.86666666666667" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1111.8666666666668" y="348" width="28.133333333333333" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="359" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">260</text>
+<text x="816" y="410" font-size="10.7" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">Gemma single-RAG</text>
+<rect x="929" y="399" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="399" width="165.28333333333333" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1094.2833333333333" y="399" width="45.71666666666667" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="410" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">235</text>
+<text x="816" y="461" font-size="10.7" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">Gemma fixed</text>
+<rect x="929" y="450" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="450" width="175.83333333333334" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1104.8333333333333" y="450" width="35.166666666666664" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="1164" y="461" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">250</text>
+<text x="816" y="512" font-size="10.7" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">gpt-oss single-RAG</text>
+<rect x="929" y="501" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="501" width="211" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<text x="1164" y="512" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">300</text>
+<text x="816" y="563" font-size="10.7" font-weight="400" fill="#111111" text-anchor="start" font-style="normal">gpt-oss fixed</text>
+<rect x="929" y="552" width="211" height="14" fill="#FFFFFF" stroke="#B7B7B7" stroke-width="0.7"/>
+<rect x="929" y="552" width="199.74666666666667" height="14" fill="#007C91" stroke="none" stroke-width="0"/>
+<rect x="1128.7466666666667" y="552" width="7.736666666666666" height="14" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<rect x="1136.4833333333333" y="552" width="3.5166666666666666" height="14" fill="#A34A2A" stroke="none" stroke-width="0"/>
+<text x="1164" y="563" font-size="10.5" font-weight="700" fill="#111111" text-anchor="end" font-style="normal">284</text>
+<text x="929" y="630" font-size="10.5" font-weight="400" fill="#555555" text-anchor="start" font-style="normal">0</text>
+<text x="1140" y="630" font-size="10.5" font-weight="400" fill="#555555" text-anchor="end" font-style="normal">300 cells</text>
+<rect x="820" y="658" width="11" height="11" fill="#007C91" stroke="none" stroke-width="0"/>
+<text x="837" y="668" font-size="10.5" font-weight="400" fill="#555555" text-anchor="start" font-style="normal">Complete</text>
+<rect x="932" y="658" width="11" height="11" fill="#9B9B9B" stroke="none" stroke-width="0"/>
+<text x="949" y="668" font-size="10.5" font-weight="400" fill="#555555" text-anchor="start" font-style="normal">Failed</text>
+<rect x="1044" y="658" width="11" height="11" fill="#A34A2A" stroke="none" stroke-width="0"/>
+<text x="1061" y="668" font-size="10.5" font-weight="400" fill="#555555" text-anchor="start" font-style="normal">Refused</text>
 </svg>

@@ -76,16 +76,16 @@ distributed.
 
 ## Results at a glance
 
-Qwen single-RAG achieved mean-run F1 0.634146, the Qwen autonomous team 0.615385, and the Qwen fixed
-team 0.604651. The autonomous-minus-fixed difference was 0.010733 (95% CI -0.119861 to 0.143774;
-two-sided p=0.880112). Withholding retrieval reduced recall on affected recent-KEV targets from 0.75
-to 0.00; the retained-minus-withheld difference was 0.75 (95% CI 0.50 to 0.916667; Holm-adjusted
-p=0.000200). See `results/` for the full condition, subgroup, and comparison tables.
+Qwen single-RAG achieved mean-run F1 0.63, the Qwen autonomous team 0.62, and the Qwen fixed team
+0.60. The autonomous-minus-fixed difference was 0.01 (95% CI -0.12 to 0.14; two-sided p=0.880).
+Withholding retrieval reduced recall on affected recent-KEV targets from 0.75 to 0.00; the
+retained-minus-withheld difference was 0.75 (95% CI 0.50 to 0.92; Holm-adjusted p<0.001). See
+`results/` for full-precision condition, subgroup, and comparison tables.
 
 ## Data and code availability
 
 The versioned public home for this package is
-https://github.com/bigwiz83/medical-cyber-sllm-benchmark. Cite the `v1.0.0` release and its resolved
+https://github.com/bigwiz83/medical-cyber-sllm-benchmark. Cite the `v1.0.1` release and its resolved
 commit identifier with the associated article. No patient, staff, or real-hospital data were used.
 
 ## Publication gate
